@@ -1,0 +1,431 @@
+{
+	"compiler": {
+		"version": "0.4.25+commit.59dbf8f1"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "userOrders",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_orderId",
+						"type": "uint256"
+					},
+					{
+						"name": "_itemId",
+						"type": "uint256"
+					},
+					{
+						"name": "_buyerId",
+						"type": "uint256"
+					},
+					{
+						"name": "_dealPrice",
+						"type": "uint256"
+					},
+					{
+						"name": "_status",
+						"type": "uint8"
+					},
+					{
+						"name": "_updateTime",
+						"type": "uint256"
+					}
+				],
+				"name": "recordOrder",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					},
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "itemBidRecords",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "nextOrderId",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": false,
+				"inputs": [
+					{
+						"name": "_itemId",
+						"type": "uint256"
+					},
+					{
+						"name": "_bidderId",
+						"type": "uint256"
+					},
+					{
+						"name": "_bidPrice",
+						"type": "uint256"
+					},
+					{
+						"name": "_bidTime",
+						"type": "uint256"
+					}
+				],
+				"name": "recordBid",
+				"outputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_itemId",
+						"type": "uint256"
+					}
+				],
+				"name": "getBidRecordsByItem",
+				"outputs": [
+					{
+						"name": "ids",
+						"type": "uint256[]"
+					},
+					{
+						"name": "itemIds",
+						"type": "uint256[]"
+					},
+					{
+						"name": "bidderIds",
+						"type": "uint256[]"
+					},
+					{
+						"name": "bidPrices",
+						"type": "uint256[]"
+					},
+					{
+						"name": "bidTimes",
+						"type": "uint256[]"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "bidRecords",
+				"outputs": [
+					{
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"name": "bidderId",
+						"type": "uint256"
+					},
+					{
+						"name": "bidPrice",
+						"type": "uint256"
+					},
+					{
+						"name": "bidTime",
+						"type": "uint256"
+					},
+					{
+						"name": "isExist",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "_userId",
+						"type": "uint256"
+					}
+				],
+				"name": "getOrdersByUser",
+				"outputs": [
+					{
+						"name": "ids",
+						"type": "uint256[]"
+					},
+					{
+						"name": "itemIds",
+						"type": "uint256[]"
+					},
+					{
+						"name": "buyerIds",
+						"type": "uint256[]"
+					},
+					{
+						"name": "dealPrices",
+						"type": "uint256[]"
+					},
+					{
+						"name": "statuses",
+						"type": "uint8[]"
+					},
+					{
+						"name": "updateTimes",
+						"type": "uint256[]"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"name": "orders",
+				"outputs": [
+					{
+						"name": "id",
+						"type": "uint256"
+					},
+					{
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"name": "buyerId",
+						"type": "uint256"
+					},
+					{
+						"name": "dealPrice",
+						"type": "uint256"
+					},
+					{
+						"name": "status",
+						"type": "uint8"
+					},
+					{
+						"name": "updateTime",
+						"type": "uint256"
+					},
+					{
+						"name": "isExist",
+						"type": "bool"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"constant": true,
+				"inputs": [],
+				"name": "nextBidRecordId",
+				"outputs": [
+					{
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"payable": false,
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"payable": false,
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"name": "recordId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "bidderId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "price",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "bidTime",
+						"type": "uint256"
+					}
+				],
+				"name": "BidPlaced",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": false,
+						"name": "orderId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "itemId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "buyerId",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "dealPrice",
+						"type": "uint256"
+					},
+					{
+						"indexed": false,
+						"name": "updateTime",
+						"type": "uint256"
+					}
+				],
+				"name": "OrderCreated",
+				"type": "event"
+			}
+		],
+		"devdoc": {
+			"methods": {
+				"getBidRecordsByItem(uint256)": {
+					"details": "根据拍品ID查询所有竞拍记录\r",
+					"params": {
+						"_itemId": "拍品ID\r"
+					},
+					"return": "竞拍记录列表\r"
+				},
+				"getOrdersByUser(uint256)": {
+					"details": "根据用户ID查询所有订单信息\r",
+					"params": {
+						"_userId": "用户ID\r"
+					},
+					"return": "订单信息列表\r"
+				},
+				"recordBid(uint256,uint256,uint256,uint256)": {
+					"details": "记录竞拍行为上链\r",
+					"params": {
+						"_bidPrice": "出价金额\r",
+						"_bidTime": "出价时间\r",
+						"_bidderId": "出价者ID\r",
+						"_itemId": "拍品ID\r"
+					}
+				},
+				"recordOrder(uint256,uint256,uint256,uint256,uint8,uint256)": {
+					"details": "记录拍卖成交结果上链\r",
+					"params": {
+						"_buyerId": "买家ID\r",
+						"_dealPrice": "成交价格\r",
+						"_itemId": "拍品ID\r",
+						"_orderId": "订单ID\r",
+						"_updateTime": "更新时间戳\r"
+					}
+				}
+			}
+		},
+		"userdoc": {
+			"methods": {}
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"AuctionSystem.sol": "AuctionSystem"
+		},
+		"evmVersion": "byzantium",
+		"libraries": {},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"AuctionSystem.sol": {
+			"keccak256": "0x7d36781b9ad485a90ba29b31d6d507d10d87be5ec39867658c9d9ffccf15b90f",
+			"urls": [
+				"bzzr://fbefe0096ac2202e85b421ffb7ca914ee3411e8f36201185a2ab4189bd18ed46"
+			]
+		}
+	},
+	"version": 1
+}
