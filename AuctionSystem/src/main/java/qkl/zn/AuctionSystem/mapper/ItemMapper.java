@@ -7,6 +7,7 @@ import qkl.zn.AuctionSystem.pojo.dto.ItemPageQueryDTO;
 import qkl.zn.AuctionSystem.pojo.entity.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Mapper
 public interface ItemMapper {
@@ -19,4 +20,8 @@ public interface ItemMapper {
     void deleteItemByIds(ArrayList<Long> ids);
 
     void updateItem(ItemDTO itemDTO);
+    
+    List<Item> selectAllItems();
+    
+    void updateItemStatus(Long id, Integer status);
 }

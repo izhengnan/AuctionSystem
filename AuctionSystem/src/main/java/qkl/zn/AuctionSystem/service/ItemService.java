@@ -6,6 +6,7 @@ import qkl.zn.AuctionSystem.pojo.entity.Item;
 import qkl.zn.AuctionSystem.result.PageResult;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface ItemService {
     void addItem(ItemDTO itemDTO);
@@ -17,4 +18,8 @@ public interface ItemService {
     void deleteItemByIds(ArrayList<Long> id);
 
     void updateItem(ItemDTO itemDTO);
+    
+    List<Item> getAllItems();
+    
+    void updateItemStatus(Long id, Integer status);
 }
