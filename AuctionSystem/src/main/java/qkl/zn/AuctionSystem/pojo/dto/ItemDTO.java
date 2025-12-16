@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 
 @Data
 public class ItemDTO {
-    Long id;
-    String title;
-    String image;
-    Long initialPrice;
-    String description;
-    LocalDateTime startTime;
-    LocalDateTime endTime;
+    private Long id;
+    private String title;
+    private String image;
+    private Long initialPrice;
+    private String description;
+    private LocalDateTime startTime;
+    private LocalDateTime endTime;
 }

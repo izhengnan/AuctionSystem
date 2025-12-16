@@ -13,21 +13,21 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @Builder
 public class Item {
-    Long id;
-    String title;
-    String image;
-    Long initialPrice;
-    String description;
+    private Long id;
+    private String title;
+    private String image;
+    private Long initialPrice;
+    private String description;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime startTime;
+    private LocalDateTime startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime endTime;
+    private LocalDateTime endTime;
 
-    Long currentMaxPrice;
-    Long currentMaxUserId;
-    Integer status;
+    private Long currentMaxPrice;
+    private Long currentMaxUserId;
+    private Integer status;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime createTime;
+    private LocalDateTime createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    LocalDateTime updateTime;
+    private LocalDateTime updateTime;
 }
