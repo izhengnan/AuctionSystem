@@ -10,6 +10,8 @@ import qkl.zn.AuctionSystem.result.PageResult;
 import qkl.zn.AuctionSystem.result.Result;
 import qkl.zn.AuctionSystem.service.ItemService;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping("/item")
 @Slf4j
@@ -36,5 +38,18 @@ public class ItemController {
         log.info("查询拍品详情:id={}", itemId);
         Item item = itemService.selectItemById(itemId);
         return Result.success(item);
+    }
+    @DeleteMapping()
+    public Result deleteItemByIds(@RequestParam("ids") ArrayList<Long> id){
+        log.info("删除拍品:{}", id);
+        itemService.deleteItemByIds(id);
+        return Result.success();
+    }
+
+    @PutMapping("update")
+    public Result updateItem(@RequestBody ItemDTO itemDTO){
+        log.info("更新拍品:{}", itemDTO);
+        itemService.updateItem(itemDTO);
+        return Result.success();
     }
 }

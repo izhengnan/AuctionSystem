@@ -14,6 +14,7 @@ import qkl.zn.AuctionSystem.result.PageResult;
 import qkl.zn.AuctionSystem.service.ItemService;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 @Service
 public class ItemServiceImpl implements ItemService {
@@ -46,4 +47,23 @@ public class ItemServiceImpl implements ItemService {
         Item item = itemMapper.selectItemById(id);
         return item;
     }
+
+    @Override
+    public void deleteItemByIds(ArrayList<Long> id) {
+        itemMapper.deleteItemByIds(id);
+    }
+
+    @Override
+    public void updateItem(ItemDTO itemDTO) {
+        Item item = itemMapper.selectItemById(itemDTO.getId());
+        if(item.getStatus() == 0) {
+            BeanUtils.copyProperties(itemDTO, item);
+            item.setUpdateTime(LocalDateTime.now());
+            itemMapper.updateItem(itemDTO);
+        }else{
+            throw new RuntimeException("该拍品已开始拍卖或已结束拍卖，不可修改");
+        }
+    }
+
+
 }
