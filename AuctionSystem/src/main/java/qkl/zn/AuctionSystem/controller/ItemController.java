@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import qkl.zn.AuctionSystem.pojo.dto.ItemDTO;
 import qkl.zn.AuctionSystem.pojo.dto.ItemPageQueryDTO;
+import qkl.zn.AuctionSystem.pojo.entity.Item;
 import qkl.zn.AuctionSystem.result.PageResult;
 import qkl.zn.AuctionSystem.result.Result;
 import qkl.zn.AuctionSystem.service.ItemService;
@@ -28,5 +29,12 @@ public class ItemController {
         log.info("查询拍品列表:{}", itemPageQueryDTO);
         PageResult pageResult = itemService.selectItemList(itemPageQueryDTO);
         return Result.success(pageResult);
+    }
+    
+    @GetMapping("/{itemId}")
+    public Result<Item> selectItemById(@PathVariable Long itemId){
+        log.info("查询拍品详情:id={}", itemId);
+        Item item = itemService.selectItemById(itemId);
+        return Result.success(item);
     }
 }

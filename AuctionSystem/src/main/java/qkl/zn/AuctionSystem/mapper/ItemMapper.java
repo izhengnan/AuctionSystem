@@ -10,4 +10,6 @@ public interface ItemMapper {
     void addItem(Item item);
 
     Page<Item> selectItemList(ItemPageQueryDTO itemPageQueryDTO);
+    
+    Item selectItemById(Long id);
 }

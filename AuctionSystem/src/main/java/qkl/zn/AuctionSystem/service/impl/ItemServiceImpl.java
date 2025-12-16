@@ -39,4 +39,9 @@ public class ItemServiceImpl implements ItemService {
         pageResult.setRecords(page.getResult());
         return pageResult;
     }
+    
+    @Override
+    public Item selectItemById(Long id) {
+        return itemMapper.selectItemById(id);
+    }
 }
