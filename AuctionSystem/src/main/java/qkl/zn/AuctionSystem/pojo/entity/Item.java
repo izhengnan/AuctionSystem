@@ -17,7 +17,7 @@ public class Item {
     String title;
     String image;
     Long initialPrice;
-    Long priceStep;
+    String description;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     LocalDateTime startTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

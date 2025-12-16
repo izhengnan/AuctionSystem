@@ -10,7 +10,7 @@ public class ItemDTO {
     String title;
     String image;
     Long initialPrice;
-    Long priceStep;
+    String description;
     LocalDateTime startTime;
     LocalDateTime endTime;
 }
