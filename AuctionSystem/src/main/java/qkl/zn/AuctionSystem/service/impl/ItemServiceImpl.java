@@ -2,6 +2,7 @@ package qkl.zn.AuctionSystem.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -42,6 +43,7 @@ public class ItemServiceImpl implements ItemService {
     
     @Override
     public Item selectItemById(Long id) {
-        return itemMapper.selectItemById(id);
+        Item item = itemMapper.selectItemById(id);
+        return item;
     }
 }
