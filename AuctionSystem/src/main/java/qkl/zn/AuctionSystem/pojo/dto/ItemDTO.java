@@ -1,0 +1,16 @@
+package qkl.zn.AuctionSystem.pojo.dto;
+
+import lombok.Data;
+
+import java.time.LocalDateTime;
+
+@Data
+public class ItemDTO {
+    Long id;
+    String title;
+    String image;
+    Long initialPrice;
+    Long priceStep;
+    LocalDateTime startTime;
+    LocalDateTime endTime;
+}
