@@ -9,6 +9,10 @@ import qkl.zn.AuctionSystem.pojo.dto.UserDTO;
 import qkl.zn.AuctionSystem.pojo.entity.User;
 import qkl.zn.AuctionSystem.result.Result;
 import qkl.zn.AuctionSystem.service.UserService;
+import qkl.zn.AuctionSystem.utils.JwtUtils;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -28,6 +32,17 @@ public class UserController {
     public Result userLogin(UserDTO userDTO) {
         log.info("登录:{}", userDTO);
         User user = userService.userLogin(userDTO);
-        return Result.success();
+        
+        // 生成JWT令牌
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", user.getId());
+        String token = JwtUtils.generateJwt(claims);
+        
+        // 创建返回数据对象，包含用户ID令牌
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("id", user.getId());
+        responseData.put("token", token);
+        
+        return Result.success(responseData);
     }
 }
