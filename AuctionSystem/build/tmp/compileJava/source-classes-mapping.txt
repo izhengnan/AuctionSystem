@@ -60,16 +60,16 @@ qkl/zn/AuctionSystem/service/impl/UserServiceImpl.java
  qkl.zn.AuctionSystem.service.impl.UserServiceImpl
 qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordBidInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemRecordBidInputBO
-qkl/zn/AuctionSystem/pojo/dto/ItemDTO.java
- qkl.zn.AuctionSystem.pojo.dto.ItemDTO
+qkl/zn/AuctionSystem/pojo/dto/UserDTO.java
+ qkl.zn.AuctionSystem.pojo.dto.UserDTO
 qkl/zn/AuctionSystem/model/CommonResponse.java
  qkl.zn.AuctionSystem.model.CommonResponse
 qkl/zn/AuctionSystem/model/bo/AuctionSystemGetBidRecordsByItemInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemGetBidRecordsByItemInputBO
 qkl/zn/AuctionSystem/service/AuctionSystemService.java
  qkl.zn.AuctionSystem.service.AuctionSystemService
-qkl/zn/AuctionSystem/Application.java
- qkl.zn.AuctionSystem.Application
+qkl/zn/AuctionSystem/service/ServiceManager.java
+ qkl.zn.AuctionSystem.service.ServiceManager
 qkl/zn/AuctionSystem/model/bo/AuctionSystemUserOrdersInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemUserOrdersInputBO
 qkl/zn/AuctionSystem/mapper/UserMapper.java
@@ -102,15 +102,15 @@ qkl/zn/AuctionSystem/utils/IOUtil.java
  qkl.zn.AuctionSystem.utils.IOUtil
 qkl/zn/AuctionSystem/config/ContractConfig.java
  qkl.zn.AuctionSystem.config.ContractConfig
-qkl/zn/AuctionSystem/pojo/dto/UserDTO.java
- qkl.zn.AuctionSystem.pojo.dto.UserDTO
-qkl/zn/AuctionSystem/service/ServiceManager.java
- qkl.zn.AuctionSystem.service.ServiceManager
 qkl/zn/AuctionSystem/controller/ItemController.java
  qkl.zn.AuctionSystem.controller.ItemController
-qkl/zn/AuctionSystem/service/ItemService.java
- qkl.zn.AuctionSystem.service.ItemService
-qkl/zn/AuctionSystem/mapper/ItemMapper.java
- qkl.zn.AuctionSystem.mapper.ItemMapper
 qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java
  qkl.zn.AuctionSystem.service.impl.ItemServiceImpl
+qkl/zn/AuctionSystem/mapper/ItemMapper.java
+ qkl.zn.AuctionSystem.mapper.ItemMapper
+qkl/zn/AuctionSystem/Application.java
+ qkl.zn.AuctionSystem.Application
+qkl/zn/AuctionSystem/service/ItemService.java
+ qkl.zn.AuctionSystem.service.ItemService
+qkl/zn/AuctionSystem/pojo/dto/ItemDTO.java
+ qkl.zn.AuctionSystem.pojo.dto.ItemDTO

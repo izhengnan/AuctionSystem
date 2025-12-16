@@ -35,6 +35,7 @@
         <if test="updateTime != null">#{updateTime},</if>
         </trim>
     </insert>
+
     <select id="selectItemList" resultType="qkl.zn.AuctionSystem.pojo.entity.Item">
         select * from t_auction_item
         <where>
@@ -48,4 +49,31 @@
     <select id="selectItemById" resultType="qkl.zn.AuctionSystem.pojo.entity.Item">
         select * from t_auction_item where id = #{id}
     </select>
+
+    <delete id="deleteItemByIds">
+        delete from t_auction_item where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+    <update id="updateItem">
+        update t_auction_item
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="image != null">image = #{image},</if>
+            <if test="initialPrice != null">initial_price = #{initialPrice},</if>
+            <if test="description != null">description = #{description},</if>
+            <if test="startTime != null">start_time = #{startTime},</if>
+            <if test="endTime != null">end_time = #{endTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </set>
+    </update>
+    
+    <select id="selectAllItems" resultType="qkl.zn.AuctionSystem.pojo.entity.Item">
+        select * from t_auction_item
+    </select>
+    
+    <update id="updateItemStatus">
+        update t_auction_item set status = #{status} where id = #{id}
+    </update>
 </mapper>
