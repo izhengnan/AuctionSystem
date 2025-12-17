@@ -4,7 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import qkl.zn.AuctionSystem.result.Result;
-import qkl.zn.AuctionSystem.utils.JwtUtil;
+import qkl.zn.AuctionSystem.utils.JwtUtils;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
@@ -81,7 +81,7 @@ public class TokenFilter implements Filter {
         
         //验证令牌合法性
         try {
-            Claims claims = JwtUtil.parseJWT("auctionsystem_secret_key", token);
+            Claims claims = JwtUtils.parseToken(token);
             
             // 保存用户信息到ThreadLocal供后续使用
             Long userId = claims.get("id") != null ? Long.valueOf(claims.get("id").toString()) : null;
