@@ -137,22 +137,14 @@ public class ItemServiceImpl implements ItemService {
             if (item.getCurrentMaxUserId() != null && item.getCurrentMaxPrice() != null) {
                 // 有最高出价用户，创建待付款订单
                 
-                // 生成订单ID（使用时间戳混合买家ID生成）
-                long timestamp = System.currentTimeMillis();
-                long orderId = timestamp * 100000 + item.getCurrentMaxUserId(); // 避免ID冲突
-                
-                // 创建订单对象
+                // 创建订单对象（ID由数据库自增生成）
                 Order order = Order.builder()
-                        .id(orderId)
                         .itemId(item.getId())
                         .userId(item.getCurrentMaxUserId())
                         .dealPrice(item.getCurrentMaxPrice())
-                        .status(0) // 0-待付款
+                        .status(0) // 新订单状态为0-待付款
                         .updateTime(LocalDateTime.now())
                         .build();
-                
-                // 保存到数据库
-                orderMapper.insertOrder(order);
                 
                 // 保存到区块链
                 AuctionSystemRecordOrderInputBO input = new AuctionSystemRecordOrderInputBO();
@@ -161,9 +153,17 @@ public class ItemServiceImpl implements ItemService {
                 input.set_dealPrice(BigInteger.valueOf(item.getCurrentMaxPrice()));
                 input.set_updateTime(BigInteger.valueOf(System.currentTimeMillis() / 1000)); // 秒级时间戳
                 
-                auctionSystemService.recordOrder(input);
-                
-                log.info("为拍品ID {} 生成订单ID {} 并上链成功", item.getId(), orderId);
+                try {
+                    auctionSystemService.recordOrder(input);
+                    
+                    // 区块链调用成功后再保存到数据库作为备份
+                    orderMapper.insertOrder(order);
+                    
+                    log.info("为拍品ID {} 生成订单并上链成功，同时备份到数据库", item.getId());
+                } catch (Exception e) {
+                    log.error("为拍品ID {} 生成订单上链失败", item.getId(), e);
+                    throw new RuntimeException("区块链订单生成失败: " + e.getMessage(), e);
+                }
             } else {
                 // 无最高出价用户，创建流拍订单
                 log.info("拍品ID {} 无最高出价用户，创建流拍记录", item.getId());
