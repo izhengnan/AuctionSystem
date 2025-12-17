@@ -1,0 +1,99 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url "http://maven.aliyun.com/nexus/content/groups/public/"}
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+        mavenLocal()
+
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.1.1.RELEASE")
+    }
+}
+plugins {
+    id 'org.springframework.boot' version '2.1.1.RELEASE'
+}
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'maven'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+group = 'qkl.zn'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenLocal()
+    mavenCentral()
+    maven { url "http://maven.aliyun.com/nexus/content/groups/public/"}
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots" }
+    maven { url "https://dl.bintray.com/ethereum/maven/" }
+    maven { url "https://oss.sonatype.org/service/local/staging/deploy/maven2"}
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+    all {
+    }
+}
+
+dependencies {
+
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.slf4j:slf4j-api:1.7.5'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    compile ('org.fisco-bcos.java-sdk:fisco-bcos-java-sdk:2.7.2') {
+        exclude group: 'org.slf4j'
+    }
+    implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.1'
+    implementation 'com.github.pagehelper:pagehelper-spring-boot-starter:1.2.10'
+    implementation 'mysql:mysql-connector-java:8.0.28'
+    
+    // JWT依赖
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-impl:0.11.2'
+    implementation 'io.jsonwebtoken:jjwt-jackson:0.11.2'
+    
+    // 阿里云OSS依赖
+    implementation 'com.aliyun:aliyun-java-sdk-core:4.5.1'
+    implementation 'com.aliyun:aliyun-java-sdk-dysmsapi:2.1.0'
+    implementation 'com.aliyun.oss:aliyun-sdk-oss:3.10.2'
+}
+
+sourceSets {
+    main {
+        java {
+            srcDir 'src/main/java'
+        }
+        resources  {
+            srcDir 'src/main/resources'
+        }
+    }
+}
+test {
+    useJUnitPlatform()
+}
+bootJar {
+    destinationDir file('dist')
+    archiveName project.name + '-exec.jar'
+    doLast {
+        copy {
+            from file('src/main/resources')
+            into 'dist'
+        }
+    }
+}
+
+clean {
+    println "delete ${projectDir}/dist"
+    delete "${projectDir}/dist"
+}
