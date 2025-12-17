@@ -38,4 +38,21 @@ public class UserServiceImpl implements UserService {
         }
         return user;
     }
+    
+    @Override
+    public User adminLogin(UserDTO userDTO) {
+        String username = userDTO.getUsername();
+        String password = userDTO.getPassword();
+        User user = userMapper.userLogin(username);
+        if (user == null) {
+            throw new RuntimeException("管理员不存在");
+        }
+        if (!user.getPassword().equals(password)) {
+            throw new RuntimeException("密码错误");
+        }
+        if (user.getRole() != 0) {
+            throw new RuntimeException("该用户不是管理员");
+        }
+        return user;
+    }
 }

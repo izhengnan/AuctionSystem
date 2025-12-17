@@ -7,4 +7,6 @@ public interface UserService {
     void userRegister(UserDTO userDTO);
 
     User userLogin(UserDTO userDTO);
+    
+    User adminLogin(UserDTO userDTO);
 }

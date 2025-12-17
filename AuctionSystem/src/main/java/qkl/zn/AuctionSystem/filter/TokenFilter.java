@@ -58,12 +58,12 @@ public class TokenFilter implements Filter {
         //获取请求路径
         String requestURI = request.getRequestURI();
         
-        // 判断是否是登录请求或注册请求
-        boolean isUserAuthRequest = requestURI.contains("/user/register") || requestURI.contains("/user/login") || 
-                                   requestURI.contains("/item/list") || requestURI.contains("/item/detail");
+        // 判断是否是公开接口（无需token验证）
+        boolean isPublicEndpoint = requestURI.contains("/user/register") || requestURI.contains("/user/login") || 
+                                  requestURI.contains("/admin/login");
         
         // 公开接口不需要token验证
-        if (isUserAuthRequest){
+        if (isPublicEndpoint){
             log.info("公开接口或登录/注册请求：{}",requestURI);
             filterChain.doFilter(servletRequest,servletResponse);
             return;
