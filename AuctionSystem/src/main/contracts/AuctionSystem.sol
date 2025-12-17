@@ -34,6 +34,7 @@ contract AuctionSystem {
     // ========== 事件定义（供前端/WeBASE监听） ==========
     event BidPlaced(uint256 recordId, uint256 itemId, uint256 bidderId, uint256 price, uint256 bidTime); // 出价事件
     event OrderCreated(uint256 orderId, uint256 itemId, uint256 buyerId, uint256 dealPrice, uint256 updateTime); // 订单创建事件
+    event OrderPaid(uint256 orderId, uint256 updateTime); // 订单付款事件
 
     // ========== 构造函数（部署时执行） ==========
     constructor() public {
@@ -67,25 +68,42 @@ contract AuctionSystem {
     // ========== 拍卖成交结果上链功能 ==========
     /**
      * @dev 记录拍卖成交结果上链
-     * @param _orderId 订单ID
      * @param _itemId 拍品ID
      * @param _buyerId 买家ID
      * @param _dealPrice 成交价格
      * @param _updateTime 更新时间戳
      */
-    function recordOrder(uint256 _orderId, uint256 _itemId, uint256 _buyerId, uint256 _dealPrice, uint8 _status, uint256 _updateTime) public {
+    function recordOrder(uint256 _itemId, uint256 _buyerId, uint256 _dealPrice, uint256 _updateTime) public returns (uint256) {
         Order memory order = Order({
-            id: _orderId,
+            id: nextOrderId,
             itemId: _itemId,
             buyerId: _buyerId,
             dealPrice: _dealPrice,
-            status: _status,
+            status: 0, // 默认状态为待付款
             updateTime: _updateTime,
             isExist: true
         });
-        orders[_orderId] = order;
-        userOrders[_buyerId].push(_orderId); // 关联用户ID和订单
-        emit OrderCreated(_orderId, _itemId, _buyerId, _dealPrice, _updateTime);
+        orders[nextOrderId] = order;
+        userOrders[_buyerId].push(nextOrderId); // 关联用户ID和订单
+        emit OrderCreated(nextOrderId, _itemId, _buyerId, _dealPrice, _updateTime);
+        uint256 orderId = nextOrderId;
+        nextOrderId++;
+        return orderId;
+    }
+
+    // ========== 订单付款功能 ==========
+    /**
+     * @dev 订单付款，更新订单状态为已完成
+     * @param _orderId 订单ID
+     * @param _updateTime 更新时间戳
+     */
+    function payOrder(uint256 _orderId, uint256 _updateTime) public {
+        require(orders[_orderId].isExist, "Order does not exist");
+        require(orders[_orderId].status == 0, "Order is not in pending payment status");
+        
+        orders[_orderId].status = 1; // 更新状态为已完成
+        orders[_orderId].updateTime = _updateTime;
+        emit OrderPaid(_orderId, _updateTime);
     }
 
     // ========== 查询功能 ==========

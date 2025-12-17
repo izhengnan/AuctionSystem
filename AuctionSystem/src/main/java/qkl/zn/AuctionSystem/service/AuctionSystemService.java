@@ -19,6 +19,7 @@ import qkl.zn.AuctionSystem.model.bo.AuctionSystemGetBidRecordsByItemInputBO;
 import qkl.zn.AuctionSystem.model.bo.AuctionSystemGetOrdersByUserInputBO;
 import qkl.zn.AuctionSystem.model.bo.AuctionSystemItemBidRecordsInputBO;
 import qkl.zn.AuctionSystem.model.bo.AuctionSystemOrdersInputBO;
+import qkl.zn.AuctionSystem.model.bo.AuctionSystemPayOrderInputBO;
 import qkl.zn.AuctionSystem.model.bo.AuctionSystemRecordBidInputBO;
 import qkl.zn.AuctionSystem.model.bo.AuctionSystemRecordOrderInputBO;
 import qkl.zn.AuctionSystem.model.bo.AuctionSystemUserOrdersInputBO;
@@ -60,6 +61,10 @@ public class AuctionSystemService {
 
   public CallResponse nextOrderId() throws Exception {
     return this.txProcessor.sendCall(this.client.getCryptoSuite().getCryptoKeyPair().getAddress(), this.address, ABI, "nextOrderId", Arrays.asList());
+  }
+
+  public TransactionResponse payOrder(AuctionSystemPayOrderInputBO input) throws Exception {
+    return this.txProcessor.sendTransactionAndGetResponse(this.address, ABI, "payOrder", input.toArgs());
   }
 
   public CallResponse getOrdersByUser(AuctionSystemGetOrdersByUserInputBO input) throws Exception {

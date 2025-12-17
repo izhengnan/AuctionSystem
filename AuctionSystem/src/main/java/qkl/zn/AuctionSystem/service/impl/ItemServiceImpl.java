@@ -156,11 +156,9 @@ public class ItemServiceImpl implements ItemService {
                 
                 // 保存到区块链
                 AuctionSystemRecordOrderInputBO input = new AuctionSystemRecordOrderInputBO();
-                input.set_orderId(BigInteger.valueOf(orderId));
                 input.set_itemId(BigInteger.valueOf(item.getId()));
                 input.set_buyerId(BigInteger.valueOf(item.getCurrentMaxUserId()));
                 input.set_dealPrice(BigInteger.valueOf(item.getCurrentMaxPrice()));
-                input.set_status(BigInteger.valueOf(0)); // 0-待付款
                 input.set_updateTime(BigInteger.valueOf(System.currentTimeMillis() / 1000)); // 秒级时间戳
                 
                 auctionSystemService.recordOrder(input);
