@@ -18,7 +18,7 @@ contract AuctionSystem {
         uint256 itemId;        // 关联拍品ID
         uint256 buyerId;       // 买家ID
         uint256 dealPrice;     // 成交价格（wei）
-        uint8 status;          // 订单状态：0-待付款，1-已完成，2-流拍
+        uint8 status;          // 订单状态：0-待付款，1-已完成
         uint256 updateTime;    // 更新时间戳
         bool isExist;          // 是否存在
     }
