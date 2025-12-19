@@ -14,14 +14,57 @@
     <!-- 导航栏 -->
     <nav class="navbar navbar-expand-lg navbar-custom">
         <div class="container">
-            <a class="navbar-brand" href="index.html">极简拍卖系统</a>
-            <div class="navbar-nav ms-auto">
-                <a class="nav-link" href="index.html">拍品列表</a>
-                <a class="nav-link active" href="user-order.html">我的订单</a>
-                <a class="nav-link" href="#" onclick="logout()">退出登录</a>
+            <a class="navbar-brand" href="index.html">拍卖系统</a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">拍品列表</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav" id="userNavbar">
+                    <!-- 动态加载用户相关的导航项 -->
+                </ul>
             </div>
         </div>
     </nav>
+    <script>
+        // 检查用户登录状态并更新导航栏
+        function checkLoginStatus() {
+            const token = localStorage.getItem('token');
+            const userNavbar = document.getElementById('userNavbar');
+            
+            if (token) {
+                // 用户已登录
+                userNavbar.innerHTML = `
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle active" href="#" role="button" data-bs-toggle="dropdown">
+                            我的账户
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="user-order.html">我的订单</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item" href="#" onclick="logout()">退出登录</a></li>
+                        </ul>
+                    </li>
+                `;
+            } else {
+                // 用户未登录
+                userNavbar.innerHTML = `
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">登录</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">注册</a>
+                    </li>
+                `;
+            }
+        }
+        
+        // 页面加载时检查用户登录状态
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLoginStatus();
+        });
+    </script>
     <script>
         // 退出登录函数
         function logout() {
@@ -146,7 +189,7 @@
                         ${order.status === 0 ? 
                             `<button class="btn btn-sm btn-primary pay-btn" data-id="${order.id}">立即付款</button>` : 
                             ``}
-                        <button class="btn btn-sm btn-outline-secondary ms-1 detail-btn" data-id="${order.id}">查看详情</button>
+                        <button class="btn btn-sm btn-outline-secondary ms-1 detail-btn" data-item-id="${order.itemId}">查看详情</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -156,6 +199,13 @@
             document.querySelectorAll('.pay-btn').forEach(btn => {
                 btn.addEventListener('click', function() {
                     payOrder(this.dataset.id);
+                });
+            });
+            
+            // 绑定查看详情按钮事件
+            document.querySelectorAll('.detail-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    viewItemDetail(this.dataset.itemId);
                 });
             });
         }
@@ -186,6 +236,15 @@
         function showErrorMessage(message) {
             const container = document.querySelector('.card-body');
             container.innerHTML = `<div class="alert alert-danger">${message}</div>`;
+        }
+        
+        // 查看拍品详情
+        function viewItemDetail(itemId) {
+            if (itemId) {
+                window.location.href = `item-detail.html?id=${itemId}`;
+            } else {
+                alert('无法获取拍品信息');
+            }
         }
     </script>
 </body>

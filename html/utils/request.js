@@ -113,51 +113,8 @@ export function removeToken() {
 }
 
 // 格式化日期时间
-export function formatDateTime(dateInput) {
-    // 处理不同类型的输入
-    let date;
-    
-    if (!dateInput) {
-        return '未知时间';
-    }
-    
-    // 如果已经是Date对象
-    if (dateInput instanceof Date) {
-        date = dateInput;
-    }
-    // 如果是数字（时间戳），需要判断是秒还是毫秒
-    else if (typeof dateInput === 'number') {
-        // 如果是秒级时间戳（小于10位数），转换为毫秒
-        if (dateInput < 10000000000) {
-            date = new Date(dateInput * 1000);
-        } else {
-            date = new Date(dateInput);
-        }
-    }
-    // 如果是字符串
-    else if (typeof dateInput === 'string') {
-        // 尝试直接解析
-        date = new Date(dateInput);
-        // 如果解析失败，可能是秒级时间戳字符串
-        if (isNaN(date.getTime()) && !isNaN(Number(dateInput))) {
-            const timestamp = Number(dateInput);
-            if (timestamp < 10000000000) {
-                date = new Date(timestamp * 1000);
-            } else {
-                date = new Date(timestamp);
-            }
-        }
-    }
-    // 其他情况
-    else {
-        date = new Date(dateInput);
-    }
-    
-    // 检查日期是否有效
-    if (isNaN(date.getTime())) {
-        return '无效时间';
-    }
-    
+export function formatDateTime(dateString) {
+    const date = new Date(dateString);
     return date.getFullYear() + '-' + 
            String(date.getMonth() + 1).padStart(2, '0') + '-' + 
            String(date.getDate()).padStart(2, '0') + ' ' + 

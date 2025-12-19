@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import qkl.zn.AuctionSystem.result.Result;
 import qkl.zn.AuctionSystem.utils.AliyunOSSOperator;
+import qkl.zn.AuctionSystem.utils.PermissionChecker;
 
 import java.util.Objects;
 
@@ -22,6 +23,11 @@ public class CommonController {
 
     @PostMapping("/upload")
     public Result<String> upload(MultipartFile file) throws Exception {
+        // 检查是否为管理员
+        if (!PermissionChecker.isAdmin()) {
+            return Result.error("权限不足，只有管理员才能上传文件");
+        }
+        
         log.info("上传文件：{}",file.getOriginalFilename());
         String url=aliyunOSSOperator.upload(file.getBytes(), Objects.requireNonNull(file.getOriginalFilename()));
         //将文件给oss存储管理
