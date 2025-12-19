@@ -166,7 +166,7 @@ public class ItemServiceImpl implements ItemService {
                 }
             } else {
                 // 无最高出价用户，创建流拍订单
-                log.info("拍品ID {} 无最高出价用户，创建流拍记录", item.getId());
+                //  log.info("拍品ID {} 无最高出价用户，创建流拍记录", item.getId());
                 // 这里可以根据需求决定是否也需要创建订单记录
             }
         } catch (Exception e) {

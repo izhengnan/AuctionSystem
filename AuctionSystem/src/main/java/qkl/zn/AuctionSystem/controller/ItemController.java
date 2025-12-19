@@ -16,6 +16,7 @@ import java.util.ArrayList;
 @RestController
 @RequestMapping("/item")
 @Slf4j
+@CrossOrigin
 public class ItemController {
     @Autowired
     private ItemService itemService;

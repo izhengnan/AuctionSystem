@@ -4,36 +4,319 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6a2e817-4146-49d3-aa07-c0f85ef1829a" name="更改" comment="feat(auction): 增加订单支付与流拍状态支持&#10;&#10;- 扩展订单状态枚举，新增流拍状态（值为2）&#10;- 新增订单付款事件（OrderPaid）用于链上记录支付行为&#10;- 调整recordOrder方法逻辑，自动生成订单ID并返回&#10;- 新增payOrder方法以支持订单付款操作及状态变更&#10;- 引入订单服务相关类文件（OrderService、OrderServiceImpl）&#10;- 新增订单控制器（OrderController）与相关数据传输对象&#10;- 完善MyBatis映射配置与应用属性文件中的数据库连接设置&#10;- 添加阿里云OSS配置项以支持图片存储功能&#10;- 更新部分依赖类的源码映射路径&#10;- 集成基础CSS样式与测试报告页面模板&#10;- 包含证书文件(ca.crt)与项目构建所需的资源文件&#10;- 优化ItemMapper.xml中SQL语句结构和字段匹配度">
-      <change beforePath="$PROJECT_DIR$/../AuctionSystem.sol" beforeDir="false" afterPath="$PROJECT_DIR$/../AuctionSystem.sol" afterDir="false" />
+    <list default="true" id="d6a2e817-4146-49d3-aa07-c0f85ef1829a" name="更改" comment="feat(controller): 添加跨域注解并更新说明文档&#10;&#10;- 为AdminController、BidController、CommonController、ItemController、OrderController和UserController添加@CrossOrigin注解&#10;- 更新说明文档中的文件上传接口备注信息&#10;- 修改查询竞拍记录接口路径为/bid/records/{itemId}&#10;- 调整部分控制器中的RequestMapping路径配置&#10;- 注释掉ItemServiceImpl中的一条日志输出语句&#10;- 在UserController中为JWT令牌添加角色信息，并在返回数据中包含角色字段&#10;- 更新workspace.xml和gradle.xml配置文件内容&#10;- 移除dataSources.local.xml中的jdbc-catalog-is-schema配置项">
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileContent/fileContent.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/fileContent/fileContent.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/Application.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/AdminController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/BidController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/BidController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/CommonController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/CommonController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/ItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/ItemController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/pojo/dto/UserDTO.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/pojo/dto/UserDTO.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/UserService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/UserService.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/Application.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/Application.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/controller/BidController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/controller/BidController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/mapper/OrderMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/mapper/OrderMapper.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/Application.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/Application.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/OrderController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/OrderController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/UserController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/UserController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/AdminController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/BidController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/BidController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/CommonController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/CommonController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/ItemController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/filter/TokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/filter/TokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/pojo/dto/UserDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/pojo/dto/UserDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/OrderController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/OrderController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/executionHistory/executionHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/executionHistory/executionHistory.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/fileChanges/last-build.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/fileContent/fileContent.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/fileHashes/fileHashes.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/fileHashes/fileHashes.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/fileHashes/resourceHashesCache.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/javaCompile/classAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/javaCompile/jarAnalysis.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/javaCompile/javaCompile.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/6.6.1/javaCompile/taskHistory.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/checksums/checksums.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/checksums/md5-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/checksums/sha1-checksums.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/configuration-cache/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.gradle/vcs-1/gc.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/compiler.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/gradle.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/modules/AuctionSystem.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/abi/AuctionSystem.abi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/bin/ecc/AuctionSystem.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/conf/ca.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/conf/sdk.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/conf/sdk.key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/mapper/ItemMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/mapper/UserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/config/ContractConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/config/SdkBeanConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/config/SystemConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/controller/BidController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/controller/CommonController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/controller/ItemController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/mapper/ItemMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/mapper/OrderMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/mapper/UserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/CommonResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemBidRecordsInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemGetBidRecordsByItemInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemGetOrdersByUserInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemItemBidRecordsInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemOrdersInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordBidInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordOrderInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemUserOrdersInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/dto/BidDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/dto/ItemDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/dto/ItemPageQueryDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/dto/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/Bid.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/Item$ItemBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/Order$OrderBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/Order.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/User$UserBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/pojo/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/properties/AliyunOSSProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$20.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$21.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$22.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$23.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$24.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$25.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$26.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$27.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$28.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$29.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$30.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$31.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$32.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$33.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$34.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$35.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$36.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$37.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$38.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$39.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$40.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$41.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$42.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$43.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$44.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$45.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$46.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$47.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$48.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$BidPlacedEventResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem$OrderCreatedEventResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/raw/AuctionSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/result/PageResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/result/Result.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/AuctionSystemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/BidService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/ServiceManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/impl/BidServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/utils/AliyunOSSOperator.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/utils/IOUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/main/qkl/zn/AuctionSystem/utils/JwtUtils.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/bin/test/qkl/zn/AuctionSystem/DemoPkey.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$10.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$11.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$12.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$13.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$14.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$15.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$16.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$17.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$18.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$19.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$20.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$21.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$22.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$23.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$24.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$25.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$26.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$27.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$28.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$29.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$3.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$30.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$31.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$32.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$33.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$34.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$35.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$36.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$37.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$38.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$39.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$4.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$40.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$41.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$42.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$43.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$44.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$45.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$46.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$47.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$48.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$5.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$6.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$7.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$8.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$9.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$BidPlacedEventResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem$OrderCreatedEventResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/AuctionSystem.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/Application.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/config/ContractConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/config/SdkBeanConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/config/SystemConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/controller/ItemController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/controller/UserController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/mapper/ItemMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/mapper/UserMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/CommonResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemBidRecordsInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemGetBidRecordsByItemInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemGetOrdersByUserInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemItemBidRecordsInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemOrdersInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordBidInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordOrderInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/model/bo/AuctionSystemUserOrdersInputBO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/dto/ItemDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/dto/ItemPageQueryDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/dto/UserDTO.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/entity/Item$ItemBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/entity/Item.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/entity/User$UserBuilder.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/pojo/entity/User.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/result/PageResult.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/result/Result.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/service/AuctionSystemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/service/ItemService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/service/ServiceManager.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/service/UserService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/classes/java/main/qkl/zn/AuctionSystem/utils/IOUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/abi/AuctionSystem.abi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/bin/ecc/AuctionSystem.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/conf/ca.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/conf/sdk.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/conf/sdk.key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/mapper/ItemMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/resources/main/mapper/UserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/contracts/AuctionSystem.sol" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/Application.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/config/ContractConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/config/SdkBeanConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/config/SystemConfig.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/controller/BidController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/controller/CommonController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/controller/ItemController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/filter/TokenFilter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/mapper/ItemMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/mapper/OrderMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/mapper/UserMapper.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/CommonResponse.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemBidRecordsInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemGetBidRecordsByItemInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemGetOrdersByUserInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemItemBidRecordsInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemOrdersInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordBidInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemRecordOrderInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/model/bo/AuctionSystemUserOrdersInputBO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/dto/BidDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/dto/ItemDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/dto/ItemPageQueryDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/dto/UserDTO.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/entity/Bid.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/entity/Item.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/entity/Order.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/pojo/entity/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/properties/AliyunOSSProperties.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/raw/AuctionSystem.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/result/PageResult.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/result/Result.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/AuctionSystemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/BidService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/ItemService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/ServiceManager.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/impl/BidServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/service/impl/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/utils/AliyunOSSOperator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/utils/IOUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/java/qkl/zn/AuctionSystem/utils/JwtUtils.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/abi/AuctionSystem.abi" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/bin/ecc/AuctionSystem.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/conf/ca.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/conf/sdk.crt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/conf/sdk.key" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/mapper/ItemMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/main/resources/mapper/UserMapper.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../AuctionSystembak/src/test/java/qkl/zn/AuctionSystem/DemoPkey.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../说明.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,21 +329,52 @@
       <ProjectState />
     </projectState>
   </component>
+  <component name="ExternalProjectsManager">
+    <system id="GRADLE">
+      <state>
+        <task path="$PROJECT_DIR$">
+          <activation />
+        </task>
+        <projects_view>
+          <tree_state>
+            <expand>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AuctionSystem" type="f1a62948:ProjectNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AuctionSystem" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+              </path>
+              <path>
+                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
+                <item name="AuctionSystem" type="f1a62948:ProjectNode" />
+                <item name="Tasks" type="e4a08cd1:TasksNode" />
+                <item name="build" type="c8890929:TasksNode$1" />
+              </path>
+            </expand>
+            <select />
+          </tree_state>
+        </projects_view>
+      </state>
+    </system>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "izhengnan"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;izhengnan&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/izhengnan/AuctionSystem.git",
-    "accountId": "dab81808-ed77-4a16-9994-c0a3af83233c"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/izhengnan/AuctionSystem.git&quot;,
+    &quot;accountId&quot;: &quot;dab81808-ed77-4a16-9994-c0a3af83233c&quot;
   }
-}]]></component>
+}</component>
   <component name="MavenImportPreferences">
     <option name="generalSettings">
       <MavenGeneralSettings>
@@ -74,45 +388,71 @@
   <component name="MavenRunner">
     <option name="jreName" value="23" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 3
-}]]></component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 3
+}</component>
   <component name="ProjectId" id="36yOEyTmA4zSJHdbrFmcvJCXr8a" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Gradle.构建 AuctionSystem.executor": "Run",
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "Spring Boot.Application.executor": "Run",
-    "git-widget-placeholder": "master",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "reference.projectsettings.compiler.javacompiler",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.AuctionSystem [clean].executor&quot;: &quot;Run&quot;,
+    &quot;Gradle.构建 AuctionSystem.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;Spring Boot.Application.executor&quot;: &quot;Run&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.projectsettings.compiler.javacompiler&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
-  <component name="RunManager">
+}</component>
+  <component name="RunManager" selected="Spring Boot.Application">
+    <configuration name="AuctionSystem [clean]" type="GradleRunConfiguration" factoryName="Gradle" temporary="true">
+      <ExternalSystemSettings>
+        <option name="executionName" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="externalSystemIdString" value="GRADLE" />
+        <option name="scriptParameters" />
+        <option name="taskDescriptions">
+          <list />
+        </option>
+        <option name="taskNames">
+          <list>
+            <option value="clean" />
+          </list>
+        </option>
+        <option name="vmOptions" />
+      </ExternalSystemSettings>
+      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>
+      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>
+      <DebugAllEnabled>false</DebugAllEnabled>
+      <RunAsTest>false</RunAsTest>
+      <method v="2" />
+    </configuration>
     <configuration name="Application" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
       <module name="AuctionSystem.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="qkl.zn.AuctionSystem.Application" />
@@ -120,6 +460,11 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Gradle.AuctionSystem [clean]" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
@@ -137,6 +482,9 @@
       <option name="presentableId" value="Default" />
       <updated>1765975238790</updated>
       <workItem from="1765975241123" duration="3038000" />
+      <workItem from="1765978839460" duration="4166000" />
+      <workItem from="1766063941058" duration="7057000" />
+      <workItem from="1766110477345" duration="2451000" />
     </task>
     <task id="LOCAL-00001" summary="添加阿里云OSS配置并优化合约代码&#10;&#10;- 在 application.properties 中新增阿里云 OSS 相关配置项&#10;- 移除 AuctionSystem.java 中冗余的包声明&#10;- 添加 Tuple1 和 Tuple2 类型导入以支持更复杂的返回值结构&#10;- 更新 AuctionSystem 合约二进制数组内容&#10;- 清理 .gitignore 文件中不必要的 IDE 忽略规则">
       <option name="closed" value="true" />
@@ -162,7 +510,15 @@
       <option name="project" value="LOCAL" />
       <updated>1765978025761</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="完善订单状态与付款流程&#10;&#10;- 新增订单状态“流拍”（值为2）&#10;- 添加订单付款事件 OrderPaid&#10;- 修改 recordOrder 方法，自动生成订单ID并返回&#10;- 新增 payOrder 方法用于更新订单状态为已付款&#10;- 限制订单付款前状态必须为待付款&#10;- 添加管理员专属登录接口 /admin/login&#10;- 强化拍品管理接口权限检查，仅允许管理员操作&#10;- 调整公开接口白名单逻辑，细化无需token验证的路径&#10;- 补充管理员登录服务实现，校验角色为0&#10;- 更新说明文档中的接口列表及备注信息">
+      <option name="closed" value="true" />
+      <created>1765978987854</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1765978987854</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -172,6 +528,7 @@
     <MESSAGE value="添加阿里云OSS配置并优化合约代码&#10;&#10;- 在 application.properties 中新增阿里云 OSS 相关配置项&#10;- 移除 AuctionSystem.java 中冗余的包声明&#10;- 添加 Tuple1 和 Tuple2 类型导入以支持更复杂的返回值结构&#10;- 更新 AuctionSystem 合约二进制数组内容&#10;- 清理 .gitignore 文件中不必要的 IDE 忽略规则" />
     <MESSAGE value="chore: 添加 IDE 忽略文件和数据库配置&#10;&#10;- 添加 .idea/.gitignore 文件，忽略 IDE 相关文件&#10;- 添加 AuctionSystembak/.idea/.gitignore 文件，忽略备份项目中的 IDE 文件&#10;- 添加 MySQL 数据库连接配置文件，包含完整的数据库模型定义&#10;- 配置本地数据源 @localhost 的权限和字符集设置&#10;- 添加 MySQL 8.0.39 版本支持的所有字符序定义" />
     <MESSAGE value="实现出价和订单相关功能&#10;&#10;- 添加竞拍出价记录查询接口，支持根据拍品ID获取所有竞拍记录&#10;- 实现订单付款和我的订单列表接口，集成区块链合约调用&#10;- 调整订单生成逻辑，先上链再入库，增强数据一致性&#10;- 更新订单表结构，移除手动设置ID字段，交由数据库自增处理&#10;- 完善说明文档中竞拍和订单模块的接口描述信息&#10;- 添加必要的配置文件和证书，支持系统完整运行环境&#10;- 优化代码结构，增强异常处理和日志记录能力" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现出价和订单相关功能&#10;&#10;- 添加竞拍出价记录查询接口，支持根据拍品ID获取所有竞拍记录&#10;- 实现订单付款和我的订单列表接口，集成区块链合约调用&#10;- 调整订单生成逻辑，先上链再入库，增强数据一致性&#10;- 更新订单表结构，移除手动设置ID字段，交由数据库自增处理&#10;- 完善说明文档中竞拍和订单模块的接口描述信息&#10;- 添加必要的配置文件和证书，支持系统完整运行环境&#10;- 优化代码结构，增强异常处理和日志记录能力" />
+    <MESSAGE value="完善订单状态与付款流程&#10;&#10;- 新增订单状态“流拍”（值为2）&#10;- 添加订单付款事件 OrderPaid&#10;- 修改 recordOrder 方法，自动生成订单ID并返回&#10;- 新增 payOrder 方法用于更新订单状态为已付款&#10;- 限制订单付款前状态必须为待付款&#10;- 添加管理员专属登录接口 /admin/login&#10;- 强化拍品管理接口权限检查，仅允许管理员操作&#10;- 调整公开接口白名单逻辑，细化无需token验证的路径&#10;- 补充管理员登录服务实现，校验角色为0&#10;- 更新说明文档中的接口列表及备注信息" />
+    <option name="LAST_COMMIT_MESSAGE" value="完善订单状态与付款流程&#10;&#10;- 新增订单状态“流拍”（值为2）&#10;- 添加订单付款事件 OrderPaid&#10;- 修改 recordOrder 方法，自动生成订单ID并返回&#10;- 新增 payOrder 方法用于更新订单状态为已付款&#10;- 限制订单付款前状态必须为待付款&#10;- 添加管理员专属登录接口 /admin/login&#10;- 强化拍品管理接口权限检查，仅允许管理员操作&#10;- 调整公开接口白名单逻辑，细化无需token验证的路径&#10;- 补充管理员登录服务实现，校验角色为0&#10;- 更新说明文档中的接口列表及备注信息" />
   </component>
 </project>

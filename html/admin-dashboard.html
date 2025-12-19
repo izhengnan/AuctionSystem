@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>拍卖系统 - 管理员后台</title>
+    <!-- 引入Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- 自定义样式 -->
+    <link rel="stylesheet" href="common.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">管理员后台</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#">管理员面板</a>
+                <a class="nav-link" href="#" onclick="logout()">退出登录</a>
+                <script>
+                    function logout() {
+                        localStorage.removeItem('token');
+                        alert('已退出登录');
+                        window.location.href = 'login.html';
+                    }
+                </script>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 后台布局 -->
+    <div class="container-fluid" style="margin-top: 56px;">
+        <div class="row">
+            <!-- 侧边栏 -->
+            <div class="col-md-2 p-0">
+                <div class="admin-sidebar">
+                    <h4 class="mb-4">管理菜单</h4>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="#itemManage">拍品管理</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 主内容区 -->
+            <div class="col-md-10">
+                <div class="admin-content" id="itemManage">
+                    <h3 class="mb-4">拍品管理</h3>
+                    
+                    <!-- 添加/修改拍品按钮 -->
+                    <div class="mb-4">
+                        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">添加拍品</button>
+                        <button class="btn btn-outline-secondary ms-2">批量删除</button>
+                    </div>
+
+                    <!-- 拍品列表 -->
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th><input type="checkbox"></th>
+                                            <th>ID</th>
+                                            <th>拍品名称</th>
+                                            <th>起拍价</th>
+                                            <th>当前最高价</th>
+                                            <th>状态</th>
+                                            <th>操作</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td colspan="7" class="text-center py-5">
+                                                <div class="spinner-border text-primary" role="status">
+                                                    <span class="visually-hidden">加载中...</span>
+                                                </div>
+                                                <p class="mt-2">正在加载拍品数据...</p>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加拍品模态框 -->
+    <div class="modal fade" id="addItemModal" tabindex="-1" aria-labelledby="addItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addItemModalLabel">添加拍品</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">拍品名称</label>
+                                <input type="text" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">起拍价（元）</label>
+                                <input type="number" class="form-control" step="0.01" min="0" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><span style="color: red;">*</span> 拍品图片：</label>
+                            <div style="display: flex; gap: 30px; align-items: flex-start;">
+                                <!-- 上传区域 -->
+                                <div style="border: 2px dashed #ddd; border-radius: 4px; padding: 60px 40px; text-align: center; cursor: pointer; transition: all 0.3s; flex-shrink: 0; width: 300px;" 
+                                     class="add-upload-area"
+                                     onmouseover="this.style.borderColor='#999'; this.style.backgroundColor='#f9f9f9';"
+                                     onmouseout="this.style.borderColor='#ddd'; this.style.backgroundColor='white';">
+                                    <div style="font-size: 32px; color: #999; margin-bottom: 10px;">↑</div>
+                                    <div style="font-size: 14px; color: #666; font-weight: 500;">上传图片</div>
+                                    <input type="file" accept="image/*" style="display: none;" id="addItemImageInput">
+                                </div>
+                                
+                                <!-- 说明文字 -->
+                                <div style="flex: 1; padding-top: 20px;">
+                                    <div style="font-size: 12px; color: #999; line-height: 1.8;">
+                                        <div style="margin-bottom: 8px;">图片大小不超过2M</div>
+                                        <div style="margin-bottom: 8px;">仅能上传 PNG JPEG JPG 类型图片</div>
+                                        <div>建议上传200*200或300*300尺寸的图片</div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- 图片预览区域 -->
+                            <div id="addItemPreview" style="margin-top: 20px; display: none;">
+                                <div style="display: flex; gap: 30px; align-items: flex-start;">
+                                    <div style="flex-shrink: 0;">
+                                        <img id="addItemImg" style="max-width: 300px; max-height: 250px; border-radius: 4px; border: 1px solid #eee;" />
+                                    </div>
+                                    <div style="flex: 1; padding-top: 20px;">
+                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.getElementById('addItemImageInput').value = ''; document.getElementById('addItemPreview').style.display = 'none'; document.querySelector('.add-upload-area').style.display = 'flex'; document.querySelector('.add-info-text').style.display = 'block';">删除</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            const addUploadArea = document.querySelector('.add-upload-area');
+                            const addImageInput = document.getElementById('addItemImageInput');
+                            
+                            addUploadArea.addEventListener('click', function() {
+                                addImageInput.click();
+                            });
+                            
+                            addImageInput.addEventListener('change', function() {
+                                if (this.files && this.files[0]) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        document.getElementById('addItemImg').src = e.target.result;
+                                        document.getElementById('addItemPreview').style.display = 'block';
+                                        document.querySelector('.add-upload-area').style.display = 'none';
+                                        document.querySelector('.add-info-text').style.display = 'none';
+                                    };
+                                    reader.readAsDataURL(this.files[0]);
+                                }
+                            });
+                            
+                            addUploadArea.addEventListener('dragover', function(e) {
+                                e.preventDefault();
+                                this.style.borderColor = '#999';
+                                this.style.backgroundColor = '#f9f9f9';
+                            });
+                            
+                            addUploadArea.addEventListener('dragleave', function(e) {
+                                this.style.borderColor = '#ddd';
+                                this.style.backgroundColor = 'white';
+                            });
+                            
+                            addUploadArea.addEventListener('drop', function(e) {
+                                e.preventDefault();
+                                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                                    addImageInput.files = e.dataTransfer.files;
+                                    addImageInput.dispatchEvent(new Event('change'));
+                                }
+                            });
+                        </script>
+                        <div class="mb-3">
+                            <label class="form-label">拍品描述</label>
+                            <textarea class="form-control" rows="3" required></textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">起拍时间</label>
+                                <input type="datetime-local" class="form-control" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">结束时间</label>
+                                <input type="datetime-local" class="form-control" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">保存</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 编辑拍品模态框 -->
+    <div class="modal fade" id="editItemModal" tabindex="-1" aria-labelledby="editItemModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="editItemModalLabel">编辑拍品</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">拍品名称</label>
+                                <input type="text" class="form-control" value="古董瓷器花瓶" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">起拍价（元）</label>
+                                <input type="number" class="form-control" step="0.01" min="0" value="2000.00" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label"><span style="color: red;">*</span> 拍品图片：</label>
+                            
+                            <!-- 已上传图片显示 -->
+                            <div id="editItemPreviewContainer" style="display: flex; gap: 30px; align-items: flex-start;">
+                                <div style="flex-shrink: 0;">
+                                    <img id="editItemImg" src="https://picsum.photos/300/250?random=1" style="max-width: 300px; max-height: 250px; border-radius: 4px; border: 1px solid #eee;" />
+                                </div>
+                                <div style="flex: 1; padding-top: 20px;">
+                                    <div style="font-size: 12px; color: #999; line-height: 1.8; margin-bottom: 15px;">
+                                        <div style="margin-bottom: 8px;">图片大小不超过2M</div>
+                                        <div style="margin-bottom: 8px;">仅能上传 PNG JPEG JPG 类型图片</div>
+                                        <div>建议上传200*200或300*300尺寸的图片</div>
+                                    </div>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.querySelector('.edit-upload-area').style.display = 'flex'; document.getElementById('editItemPreviewContainer').style.display = 'none';">更换图片</button>
+                                </div>
+                            </div>
+                            
+                            <!-- 上传区域 -->
+                            <div class="edit-upload-area" style="display: none; gap: 30px; align-items: flex-start;">
+                                <div style="border: 2px dashed #ddd; border-radius: 4px; padding: 60px 40px; text-align: center; cursor: pointer; transition: all 0.3s; flex-shrink: 0; width: 300px;" 
+                                     class="edit-upload-input"
+                                     onmouseover="this.style.borderColor='#999'; this.style.backgroundColor='#f9f9f9';"
+                                     onmouseout="this.style.borderColor='#ddd'; this.style.backgroundColor='white';">
+                                    <div style="font-size: 32px; color: #999; margin-bottom: 10px;">↑</div>
+                                    <div style="font-size: 14px; color: #666; font-weight: 500;">上传图片</div>
+                                    <input type="file" accept="image/*" style="display: none;" id="editItemImageInput">
+                                </div>
+                                
+                                <!-- 说明文字 -->
+                                <div style="flex: 1; padding-top: 20px;">
+                                    <div style="font-size: 12px; color: #999; line-height: 1.8;">
+                                        <div style="margin-bottom: 8px;">图片大小不超过2M</div>
+                                        <div style="margin-bottom: 8px;">仅能上传 PNG JPEG JPG 类型图片</div>
+                                        <div>建议上传200*200或300*300尺寸的图片</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <script>
+                            const editUploadArea = document.querySelector('.edit-upload-input');
+                            const editImageInput = document.getElementById('editItemImageInput');
+                            
+                            editUploadArea.addEventListener('click', function() {
+                                editImageInput.click();
+                            });
+                            
+                            editImageInput.addEventListener('change', function() {
+                                if (this.files && this.files[0]) {
+                                    const reader = new FileReader();
+                                    reader.onload = function(e) {
+                                        document.getElementById('editItemImg').src = e.target.result;
+                                        document.querySelector('.edit-upload-area').style.display = 'none';
+                                        document.getElementById('editItemPreviewContainer').style.display = 'flex';
+                                    };
+                                    reader.readAsDataURL(this.files[0]);
+                                }
+                            });
+                            
+                            editUploadArea.addEventListener('dragover', function(e) {
+                                e.preventDefault();
+                                this.style.borderColor = '#999';
+                                this.style.backgroundColor = '#f9f9f9';
+                            });
+                            
+                            editUploadArea.addEventListener('dragleave', function(e) {
+                                this.style.borderColor = '#ddd';
+                                this.style.backgroundColor = 'white';
+                            });
+                            
+                            editUploadArea.addEventListener('drop', function(e) {
+                                e.preventDefault();
+                                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                                    editImageInput.files = e.dataTransfer.files;
+                                    editImageInput.dispatchEvent(new Event('change'));
+                                }
+                            });
+                        </script>
+                        <div class="mb-3">
+                            <label class="form-label">拍品描述</label>
+                            <textarea class="form-control" rows="3" required>此花瓶为清代中期官窑出品，器型规整，釉色温润，保存完好，具有较高的收藏价值。</textarea>
+                        </div>
+                        <div class="row mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label">起拍时间</label>
+                                <input type="datetime-local" class="form-control" value="2025-12-01T10:00" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">结束时间</label>
+                                <input type="datetime-local" class="form-control" value="2025-12-31T23:59" required>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+                    <button type="button" class="btn btn-primary">保存修改</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="module">
+        import { get, post, put, del, formatDateTime, formatCurrency } from './utils/request.js';
+        
+        // 页面加载完成后初始化
+        document.addEventListener('DOMContentLoaded', function() {
+            loadItemList();
+        });
+        
+        // 加载拍品列表
+        async function loadItemList() {
+            try {
+                const response = await get('/item/list', {
+                    page: 1,
+                    pageSize: 100 // 获取所有拍品
+                });
+                
+                if (response.code === 1) {
+                    renderItemList(response.data.records);
+                } else {
+                    console.error('获取拍品列表失败:', response.msg);
+                    showErrorMessage('获取拍品列表失败: ' + response.msg);
+                }
+            } catch (error) {
+                console.error('获取拍品列表异常:', error);
+                showErrorMessage('获取拍品列表异常');
+            }
+        }
+        
+        // 渲染拍品列表
+        function renderItemList(items) {
+            const tbody = document.querySelector('tbody');
+            tbody.innerHTML = '';
+            
+            if (!items || items.length === 0) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = '<td colspan="7" class="text-center text-muted">暂无拍品数据</td>';
+                tbody.appendChild(tr);
+                return;
+            }
+            
+            items.forEach(item => {
+                const tr = document.createElement('tr');
+                
+                // 根据状态设置标签
+                let statusText = '';
+                let statusClass = '';
+                
+                switch (item.status) {
+                    case 0: // 未开始
+                        statusText = '未开始';
+                        statusClass = 'bg-secondary';
+                        break;
+                    case 1: // 竞拍中
+                        statusText = '竞拍中';
+                        statusClass = 'bg-primary';
+                        break;
+                    case 2: // 已结束
+                        statusText = '已结束';
+                        statusClass = 'bg-success';
+                        break;
+                    default:
+                        statusText = '未知';
+                        statusClass = 'bg-secondary';
+                }
+                
+                tr.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.title}</td>
+                    <td>${formatCurrency(item.initialPrice)}</td>
+                    <td><span class="badge ${statusClass}">${statusText}</span></td>
+                    <td>${formatDateTime(item.startTime)}</td>
+                    <td>${formatDateTime(item.endTime)}</td>
+                    <td>
+                        <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${item.id}">编辑</button>
+                        <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${item.id}">删除</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+            
+            // 绑定编辑按钮事件
+            document.querySelectorAll('.edit-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.dataset.id;
+                    editItem(itemId);
+                });
+            });
+            
+            // 绑定删除按钮事件
+            document.querySelectorAll('.delete-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.dataset.id;
+                    deleteItem(itemId);
+                });
+            });
+        }
+        
+        // 编辑拍品
+        async function editItem(itemId) {
+            try {
+                const response = await get(`/item/${itemId}`);
+                
+                if (response.code === 1) {
+                    const item = response.data;
+                    // 填充编辑表单
+                    document.getElementById('editItemId').value = item.id;
+                    document.getElementById('editItemTitle').value = item.title;
+                    document.getElementById('editItemInitialPrice').value = item.initialPrice;
+                    document.getElementById('editItemDesc').value = item.description;
+                    document.getElementById('editItemStartTime').value = item.startTime.slice(0, 16); // 格式化为datetime-local
+                    document.getElementById('editItemEndTime').value = item.endTime.slice(0, 16); // 格式化为datetime-local
+                    
+                    // 处理图片显示
+                    const editItemImg = document.getElementById('editItemImg');
+                    const editItemPreviewContainer = document.getElementById('editItemPreviewContainer');
+                    const editUploadArea = document.querySelector('.edit-upload-area');
+                    
+                    if (item.image) {
+                        editItemImg.src = item.image;
+                        editItemPreviewContainer.style.display = 'flex';
+                        editUploadArea.style.display = 'none';
+                    } else {
+                        // 如果没有图片，显示上传区域
+                        editItemPreviewContainer.style.display = 'none';
+                        editUploadArea.style.display = 'flex';
+                    }
+                    
+                    // 显示编辑模态框
+                    const editModal = new bootstrap.Modal(document.getElementById('editItemModal'));
+                    editModal.show();
+                } else {
+                    alert('获取拍品详情失败: ' + response.msg);
+                }
+            } catch (error) {
+                console.error('获取拍品详情异常:', error);
+                alert('获取拍品详情异常');
+            }
+        }
+        
+        // 删除拍品
+        async function deleteItem(itemId) {
+            if (!confirm('确定要删除该拍品吗？')) {
+                return;
+            }
+            
+            try {
+                const response = await del('/item', { ids: itemId });
+                
+                if (response.code === 1) {
+                    alert('删除成功！');
+                    // 重新加载拍品列表
+                    loadItemList();
+                } else {
+                    alert('删除失败: ' + response.msg);
+                }
+            } catch (error) {
+                console.error('删除异常:', error);
+                alert('删除异常，请稍后重试');
+            }
+        }
+        
+        // 添加拍品表单提交事件
+        document.getElementById('addItemForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const itemData = {
+                title: formData.get('title'),
+                initialPrice: parseFloat(formData.get('initialPrice')),
+                description: formData.get('description'),
+                startTime: formData.get('startTime'),
+                endTime: formData.get('endTime')
+            };
+            
+            try {
+                const response = await put('/item/add', itemData);
+                
+                if (response.code === 1) {
+                    alert('添加成功！');
+                    const addModal = bootstrap.Modal.getInstance(document.getElementById('addItemModal'));
+                    addModal.hide();
+                    // 重新加载拍品列表
+                    loadItemList();
+                } else {
+                    alert('添加失败: ' + response.msg);
+                }
+            } catch (error) {
+                console.error('添加异常:', error);
+                alert('添加异常，请稍后重试');
+            }
+        });
+        
+        // 编辑拍品表单提交事件
+        document.getElementById('editItemForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const formData = new FormData(this);
+            const itemData = {
+                id: parseInt(formData.get('id')),
+                title: formData.get('title'),
+                initialPrice: parseFloat(formData.get('initialPrice')),
+                description: formData.get('description'),
+                startTime: formData.get('startTime'),
+                endTime: formData.get('endTime')
+            };
+            
+            try {
+                const response = await put('/item/update', itemData);
+                
+                if (response.code === 1) {
+                    alert('修改成功！');
+                    const editModal = bootstrap.Modal.getInstance(document.getElementById('editItemModal'));
+                    editModal.hide();
+                    // 重新加载拍品列表
+                    loadItemList();
+                } else {
+                    alert('修改失败: ' + response.msg);
+                }
+            } catch (error) {
+                console.error('修改异常:', error);
+                alert('修改异常，请稍后重试');
+            }
+        });
+        
+        // 显示错误信息
+        function showErrorMessage(message) {
+            const container = document.querySelector('.admin-content');
+            container.innerHTML = `<div class="alert alert-danger">${message}</div>`;
+        }
+    </script>
+</body>
+</html>
