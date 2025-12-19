@@ -23,18 +23,6 @@
         </div>
     </nav>
     <script>
-        // 页面加载时检查用户登录状态
-        window.onload = function() {
-            const token = localStorage.getItem('token');
-            
-            if (!token) {
-                // 未登录，跳转到登录页面
-                alert('请先登录');
-                window.location.href = 'login.html';
-                return;
-            }
-        };
-        
         // 退出登录函数
         function logout() {
             localStorage.removeItem('token');
@@ -56,7 +44,7 @@
                                 <th>拍品名称</th>
                                 <th>成交价格</th>
                                 <th>订单状态</th>
-                                <th>创建时间</th>
+                                <th>更新时间</th>
                                 <th>操作</th>
                             </tr>
                         </thead>
@@ -83,13 +71,25 @@
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 检查用户登录状态
+            const token = localStorage.getItem('token');
+            
+            if (!token) {
+                // 未登录，跳转到登录页面
+                alert('请先登录');
+                window.location.href = 'login.html';
+                return;
+            }
+            
             loadOrders();
         });
 
         // 加载订单列表
         async function loadOrders() {
             try {
+                console.log('开始请求订单数据...');
                 const response = await get('/order/my');
+                console.log('订单数据响应:', response);
                 
                 if (response.code === 1) {
                     renderOrders(response.data);
@@ -99,7 +99,7 @@
                 }
             } catch (error) {
                 console.error('获取订单列表异常:', error);
-                showErrorMessage('获取订单列表异常');
+                showErrorMessage('获取订单列表异常: ' + error.message);
             }
         }
 
@@ -141,7 +141,7 @@
                     <td>${order.itemTitle || '未知拍品'}</td>
                     <td>¥${order.dealPrice.toFixed(2)}</td>
                     <td><span class="status-tag ${statusClass}">${statusText}</span></td>
-                    <td>${formatDateTime(order.createTime)}</td>
+                    <td>${formatDateTime(order.updateTime)}</td>
                     <td>
                         ${order.status === 0 ? 
                             `<button class="btn btn-sm btn-primary pay-btn" data-id="${order.id}">立即付款</button>` : 
@@ -180,15 +180,7 @@
             }
         }
 
-        // 格式化日期时间
-        function formatDateTime(dateString) {
-            const date = new Date(dateString);
-            return date.getFullYear() + '-' + 
-                   String(date.getMonth() + 1).padStart(2, '0') + '-' + 
-                   String(date.getDate()).padStart(2, '0') + ' ' + 
-                   String(date.getHours()).padStart(2, '0') + ':' + 
-                   String(date.getMinutes()).padStart(2, '0');
-        }
+
 
         // 显示错误信息
         function showErrorMessage(message) {

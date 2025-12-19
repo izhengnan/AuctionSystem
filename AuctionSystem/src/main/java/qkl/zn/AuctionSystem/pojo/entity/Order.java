@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 
 @Data
@@ -17,6 +18,7 @@ public class Order {
     private Long userId;
     private Long dealPrice;
     private Integer status; // 状态由合约生成
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
     private String itemTitle; // 拍品名称，用于前端显示
 }
