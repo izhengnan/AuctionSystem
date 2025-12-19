@@ -3,6 +3,7 @@ package qkl.zn.AuctionSystem.controller;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import qkl.zn.AuctionSystem.filter.TokenFilter;
 import qkl.zn.AuctionSystem.pojo.dto.UserDTO;
 import qkl.zn.AuctionSystem.pojo.entity.User;
 import qkl.zn.AuctionSystem.result.Result;
@@ -45,6 +46,27 @@ public class AdminController {
         responseData.put("role", user.getRole());
         responseData.put("token", token);
         log.info("管理员登录成功，返回数据:{}", responseData);
+        return Result.success(responseData);
+    }
+    
+    /**
+     * 检查管理员token
+     * @return token信息
+     */
+    @GetMapping("/check-token")
+    public Result checkToken() {
+        log.info("检查管理员token");
+        
+        // 从TokenFilter中获取当前用户信息
+        Long userId = TokenFilter.getCurrentUserId();
+        Integer userRole = TokenFilter.getCurrentUserRole();
+        
+        // 创建返回数据对象
+        Map<String, Object> responseData = new HashMap<>();
+        responseData.put("id", userId);
+        responseData.put("role", userRole);
+        
+        log.info("token检查结果: id={}, role={}", userId, userRole);
         return Result.success(responseData);
     }
 }

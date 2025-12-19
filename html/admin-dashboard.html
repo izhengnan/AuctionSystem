@@ -268,9 +268,24 @@
     <script type="module">
         import { get, post, put, del, postFormData, formatDateTime, formatCurrency } from './utils/request.js';
         
+        // 检查管理员登录状态
+        function checkAdminLogin() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                alert('请先登录管理员账户');
+                window.location.href = 'admin-login.html';
+                return false;
+            }
+            return true;
+        }
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
+            // 检查管理员登录状态
+            if (!checkAdminLogin()) {
+                return;
+            }
+            
             loadItemList();
                     
             // 为添加拍品的图片上传设置事件监听
