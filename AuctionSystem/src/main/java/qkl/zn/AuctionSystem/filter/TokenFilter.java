@@ -55,12 +55,24 @@ public class TokenFilter implements Filter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
+        
+        // 处理OPTIONS预检请求（CORS），直接放行
+        if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
+            log.info("OPTIONS预检请求，直接放行");
+            filterChain.doFilter(servletRequest, servletResponse);
+            return;
+        }
+        
         //获取请求路径
         String requestURI = request.getRequestURI();
         
         // 判断是否是公开接口（无需token验证）
-        boolean isPublicEndpoint = requestURI.contains("/user/register") || requestURI.contains("/user/login") || 
-                                  requestURI.contains("/admin/login");
+        boolean isPublicEndpoint = requestURI.contains("/user/register") || 
+                                  requestURI.contains("/user/login") || 
+                                  requestURI.contains("/admin/login") ||
+                                  requestURI.contains("/item/list") ||
+                                  requestURI.matches("/item/\\d+") ||
+                                  requestURI.matches("/bid/records/\\d+");
         
         // 公开接口不需要token验证
         if (isPublicEndpoint){

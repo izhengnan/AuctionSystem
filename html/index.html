@@ -263,12 +263,16 @@
                 // 处理图片显示
                 let imageHtml = '';
                 if (item.image) {
-                    imageHtml = `<img src="${item.image}" class="card-img-top" alt="拍品图片">`;
+                    imageHtml = `
+                        <div class="card-img-container">
+                            <img src="${item.image}" alt="拍品图片">
+                        </div>`;
                 } else {
-                    // 如果没有图片，可以显示默认占位图或不显示图片区域
-                    imageHtml = '<div class="card-img-top bg-light d-flex align-items-center justify-content-center" style="height: 200px;"><span class="text-muted">暂无图片</span></div>';
-                    // 或者完全不显示图片区域:
-                    // imageHtml = '';
+                    // 如果没有图片，显示默认占位图
+                    imageHtml = `
+                        <div class="card-img-container">
+                            <span class="text-muted">暂无图片</span>
+                        </div>`;
                 }
                 
                 col.innerHTML = `

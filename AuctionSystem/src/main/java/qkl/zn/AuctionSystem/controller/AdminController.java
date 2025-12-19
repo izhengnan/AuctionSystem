@@ -15,7 +15,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/admin")
 @Slf4j
-@CrossOrigin
 public class AdminController {
 
     @Autowired
@@ -45,7 +44,7 @@ public class AdminController {
         responseData.put("id", user.getId());
         responseData.put("role", user.getRole());
         responseData.put("token", token);
-        
+        log.info("管理员登录成功，返回数据:{}", responseData);
         return Result.success(responseData);
     }
 }

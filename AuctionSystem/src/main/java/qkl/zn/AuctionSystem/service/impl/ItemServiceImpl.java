@@ -41,7 +41,6 @@ public class ItemServiceImpl implements ItemService {
         BeanUtils.copyProperties(itemDTO, item);
         item.setCreateTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
-        item.setCurrentMaxPrice(item.getInitialPrice());
         item.setStatus(0); // 默认状态为0（未开始）
         itemMapper.addItem(item);
     }

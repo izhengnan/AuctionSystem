@@ -16,7 +16,6 @@ import java.util.Objects;
 @RestController
 @Slf4j
 @RequestMapping("/admin/common")
-@CrossOrigin
 public class CommonController {
     @Autowired
     private AliyunOSSOperator aliyunOSSOperator;

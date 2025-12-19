@@ -15,7 +15,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/user")
 @Slf4j
-@CrossOrigin
 public class UserController {
     @Autowired
     private UserService userService;
@@ -43,7 +42,7 @@ public class UserController {
         responseData.put("id", user.getId());
         responseData.put("role", user.getRole());
         responseData.put("token", token);
-            
+        log.info("登录成功:{}", responseData);
         return Result.success(responseData);
     }
 }

@@ -12,7 +12,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/order")
 @Slf4j
-@CrossOrigin
 public class OrderController {
 
     @Autowired

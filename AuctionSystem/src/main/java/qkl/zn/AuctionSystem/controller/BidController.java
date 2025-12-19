@@ -16,7 +16,6 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/bid")
-@CrossOrigin
 public class BidController {
     @Autowired
     private BidService bidService;

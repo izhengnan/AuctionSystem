@@ -35,10 +35,48 @@ body {
     border: none;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.3s;
+    display: flex;
+    flex-direction: column;
 }
 
 .card:hover {
     transform: translateY(-5px);
+}
+
+/* 固定图片区域 */
+.card-img-container {
+    height: 200px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+}
+
+.card-img-container img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+}
+
+/* 固定内容区域 */
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-title {
+    flex: 1;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    margin-bottom: 5px;
+}
+
+.card-footer {
+    margin-top: auto;
 }
 
 /* 按钮样式 */

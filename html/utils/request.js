@@ -6,6 +6,13 @@ const config = {
     timeout: 10000, // 10秒超时
 };
 
+/**
+ * 获取token
+ */
+function getToken() {
+    return localStorage.getItem('token') || '';
+}
+
 // 统一处理响应
 async function handleResponse(response) {
     if (!response.ok) {
@@ -20,7 +27,7 @@ async function handleResponse(response) {
     }
 }
 
-// 通用GET请求
+// 通用GET请求 - 在请求头中携带token
 export async function get(url, params = {}) {
     // 构建查询参数
     const queryString = new URLSearchParams(params).toString();
@@ -30,20 +37,20 @@ export async function get(url, params = {}) {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'token': localStorage.getItem('token') || ''
+            'token': getToken()
         }
     });
     
     return handleResponse(response);
 }
 
-// 通用POST请求
+// 通用POST请求 - 在请求头中携带token
 export async function post(url, data = {}) {
     const response = await fetch(`${BASE_URL}${url}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'token': localStorage.getItem('token') || ''
+            'token': getToken()
         },
         body: JSON.stringify(data)
     });
@@ -51,13 +58,13 @@ export async function post(url, data = {}) {
     return handleResponse(response);
 }
 
-// 通用PUT请求
+// 通用PUT请求 - 在请求头中携带token
 export async function put(url, data = {}) {
     const response = await fetch(`${BASE_URL}${url}`, {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
-            'token': localStorage.getItem('token') || ''
+            'token': getToken()
         },
         body: JSON.stringify(data)
     });
@@ -65,7 +72,7 @@ export async function put(url, data = {}) {
     return handleResponse(response);
 }
 
-// 通用DELETE请求
+// 通用DELETE请求 - 在请求头中携带token
 export async function del(url, params = {}) {
     // 构建查询参数
     const queryString = new URLSearchParams(params).toString();
@@ -75,8 +82,21 @@ export async function del(url, params = {}) {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'token': localStorage.getItem('token') || ''
+            'token': getToken()
         }
+    });
+    
+    return handleResponse(response);
+}
+
+// FormData POST请求 - 用于文件上传，在请求头中携带token
+export async function postFormData(url, formData) {
+    const response = await fetch(`${BASE_URL}${url}`, {
+        method: 'POST',
+        headers: {
+            'token': getToken()
+        },
+        body: formData
     });
     
     return handleResponse(response);
@@ -85,11 +105,6 @@ export async function del(url, params = {}) {
 // 存储token
 export function setToken(token) {
     localStorage.setItem('token', token);
-}
-
-// 获取token
-export function getToken() {
-    return localStorage.getItem('token');
 }
 
 // 清除token

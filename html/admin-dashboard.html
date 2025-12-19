@@ -150,95 +150,7 @@
                         </div>
                         
                         <script>
-                            // 添加拍品图片上传逻辑
-                            (function() {
-                                const uploadContainer = document.getElementById('addUploadContainer');
-                                const imageInput = document.getElementById('addItemImageInput');
-                                const imageUrlInput = document.getElementById('addItemImageUrl');
-                                const previewContainer = document.getElementById('addItemPreviewContainer');
-                                const previewImg = document.getElementById('addItemPreviewImg');
-                                const deleteBtn = document.getElementById('addItemDeleteBtn');
-                                const uploadArea = document.getElementById('addUploadContainer');
-                                
-                                // 点击上传区域打开文件选择
-                                uploadContainer.addEventListener('click', function() {
-                                    imageInput.click();
-                                });
-                                
-                                // 文件选择变化事件
-                                imageInput.addEventListener('change', async function() {
-                                    if (this.files && this.files[0]) {
-                                        await uploadImage(this.files[0]);
-                                    }
-                                });
-                                
-                                // 拖拽上传
-                                uploadContainer.addEventListener('dragover', function(e) {
-                                    e.preventDefault();
-                                    this.style.borderColor = '#999';
-                                    this.style.backgroundColor = '#f9f9f9';
-                                });
-                                
-                                uploadContainer.addEventListener('dragleave', function(e) {
-                                    this.style.borderColor = '#ddd';
-                                    this.style.backgroundColor = 'white';
-                                });
-                                
-                                uploadContainer.addEventListener('drop', function(e) {
-                                    e.preventDefault();
-                                    this.style.borderColor = '#ddd';
-                                    this.style.backgroundColor = 'white';
-                                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                                        uploadImage(e.dataTransfer.files[0]);
-                                    }
-                                });
-                                
-                                // 删除图片
-                                deleteBtn.addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    imageUrlInput.value = '';
-                                    imageInput.value = '';
-                                    previewContainer.style.display = 'none';
-                                    uploadArea.style.display = 'block';
-                                });
-                                
-                                // 上传图片函数
-                                async function uploadImage(file) {
-                                    try {
-                                        const formData = new FormData();
-                                        formData.append('file', file);
-                                        
-                                        const response = await fetch('http://localhost:8080/admin/common/upload', {
-                                            method: 'POST',
-                                            body: formData,
-                                            headers: {
-                                                'token': localStorage.getItem('token') || ''
-                                            }
-                                        });
-                                        
-                                        const result = await response.json();
-                                        
-                                        if (result.code === 1) {
-                                            // 上传成功，保存URL到隐藏的输入框
-                                            imageUrlInput.value = result.data;
-                                            
-                                            // 显示预览
-                                            previewImg.src = result.data;
-                                            previewContainer.style.display = 'block';
-                                            uploadArea.style.display = 'none';
-                                            
-                                            console.log('图片上传成功:', result.data);
-                                        } else {
-                                            alert('图片上传失败: ' + result.msg);
-                                            imageInput.value = '';
-                                        }
-                                    } catch (error) {
-                                        console.error('图片上传异常:', error);
-                                        alert('图片上传异常，请稍后重试');
-                                        imageInput.value = '';
-                                    }
-                                }
-                            })();
+                            // 添加拍品图片上传逻辑将在主脚本中由setupAddImageUpload处理
                         </script>
                         <div class="mb-3">
                             <label class="form-label">拍品描述</label>
@@ -326,95 +238,7 @@
                             </div>
                         </div>
                         
-                        <script>
-                            // 编辑拍品图片上传逻辑
-                            (function() {
-                                const imageUrlInput = document.getElementById('editItemImageUrl');
-                                const previewContainer = document.getElementById('editItemPreviewContainer');
-                                const previewImg = document.getElementById('editItemImg');
-                                const uploadContainer = document.getElementById('editUploadContainer');
-                                const uploadArea = document.getElementById('editUploadArea');
-                                const imageInput = document.getElementById('editItemImageInput');
-                                const changeImageBtn = document.getElementById('editChangeImageBtn');
-                                
-                                // 更换图片按钮
-                                changeImageBtn.addEventListener('click', function(e) {
-                                    e.preventDefault();
-                                    previewContainer.style.display = 'none';
-                                    uploadContainer.style.display = 'flex';
-                                });
-                                
-                                // 点击上传区域打开文件选择
-                                uploadArea.addEventListener('click', function() {
-                                    imageInput.click();
-                                });
-                                
-                                // 文件选择变化事件
-                                imageInput.addEventListener('change', async function() {
-                                    if (this.files && this.files[0]) {
-                                        await uploadImage(this.files[0]);
-                                    }
-                                });
-                                
-                                // 拖拽上传
-                                uploadArea.addEventListener('dragover', function(e) {
-                                    e.preventDefault();
-                                    this.style.borderColor = '#999';
-                                    this.style.backgroundColor = '#f9f9f9';
-                                });
-                                
-                                uploadArea.addEventListener('dragleave', function(e) {
-                                    this.style.borderColor = '#ddd';
-                                    this.style.backgroundColor = 'white';
-                                });
-                                
-                                uploadArea.addEventListener('drop', function(e) {
-                                    e.preventDefault();
-                                    this.style.borderColor = '#ddd';
-                                    this.style.backgroundColor = 'white';
-                                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                                        uploadImage(e.dataTransfer.files[0]);
-                                    }
-                                });
-                                
-                                // 上传图片函数
-                                async function uploadImage(file) {
-                                    try {
-                                        const formData = new FormData();
-                                        formData.append('file', file);
-                                        
-                                        const response = await fetch('http://localhost:8080/admin/common/upload', {
-                                            method: 'POST',
-                                            body: formData,
-                                            headers: {
-                                                'token': localStorage.getItem('token') || ''
-                                            }
-                                        });
-                                        
-                                        const result = await response.json();
-                                        
-                                        if (result.code === 1) {
-                                            // 上传成功，保存URL到隐藏输入框
-                                            imageUrlInput.value = result.data;
-                                            
-                                            // 显示预览
-                                            previewImg.src = result.data;
-                                            uploadContainer.style.display = 'none';
-                                            previewContainer.style.display = 'flex';
-                                            
-                                            console.log('编辑图片上传成功:', result.data);
-                                        } else {
-                                            alert('图片上传失败: ' + result.msg);
-                                            imageInput.value = '';
-                                        }
-                                    } catch (error) {
-                                        console.error('图片上传异常:', error);
-                                        alert('图片上传异常，请稍后重试');
-                                        imageInput.value = '';
-                                    }
-                                }
-                            })();
-                        </script>
+                        <!-- 编辑拍品图片上传逻辑将在模态框加载后由主脚本中的postFormData处理 -->
                         <div class="mb-3">
                             <label class="form-label">拍品描述</label>
                             <textarea id="editItemDesc" name="description" class="form-control" rows="3" required>此花瓶为清代中期官窑出品，器型规整，釉色温润，保存完好，具有较高的收藏价值。</textarea>
@@ -442,14 +266,17 @@
     <!-- 引入JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module">
-        import { get, post, put, del, formatDateTime, formatCurrency } from './utils/request.js';
+        import { get, post, put, del, postFormData, formatDateTime, formatCurrency } from './utils/request.js';
         
 
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
             loadItemList();
-            
-            // 添加拍品按钮点击事件
+                    
+            // 为添加拍品的图片上传设置事件监听
+            setupAddImageUpload();
+                    
+            // 添加拍品按锕点击事件
             document.getElementById('addItemSubmitBtn').addEventListener('click', function() {
                 // 手动触发表单提交
                 document.getElementById('addItemForm').dispatchEvent(new Event('submit'));
@@ -642,12 +469,198 @@
                     // 显示编辑模态框
                     const editModal = new bootstrap.Modal(document.getElementById('editItemModal'));
                     editModal.show();
+                    
+                    // 在模态框打开后，为编辑图片上传添加事件监听
+                    setupEditImageUpload();
                 } else {
                     alert('获取拍品详情失败: ' + response.msg);
                 }
             } catch (error) {
                 console.error('获取拍品详情异常:', error);
                 alert('获取拍品详情异常');
+            }
+        }
+        
+        // 设置编辑图片上传事件
+        function setupEditImageUpload() {
+            const imageUrlInput = document.getElementById('editItemImageUrl');
+            const previewContainer = document.getElementById('editItemPreviewContainer');
+            const previewImg = document.getElementById('editItemImg');
+            const uploadContainer = document.getElementById('editUploadContainer');
+            const uploadArea = document.getElementById('editUploadArea');
+            const imageInput = document.getElementById('editItemImageInput');
+            const changeImageBtn = document.getElementById('editChangeImageBtn');
+            
+            // 移除旧的事件监听器（如果有的话）
+            changeImageBtn.removeEventListener('click', changeImageClickHandler);
+            uploadArea.removeEventListener('click', uploadAreaClickHandler);
+            imageInput.removeEventListener('change', imageInputChangeHandler);
+            uploadArea.removeEventListener('dragover', uploadAreaDragOverHandler);
+            uploadArea.removeEventListener('dragleave', uploadAreaDragLeaveHandler);
+            uploadArea.removeEventListener('drop', uploadAreaDropHandler);
+            
+            // 更换图片按锕
+            changeImageBtn.addEventListener('click', changeImageClickHandler);
+            
+            // 点击上传区域打开文件选择
+            uploadArea.addEventListener('click', uploadAreaClickHandler);
+            
+            // 文件选择变化事件
+            imageInput.addEventListener('change', imageInputChangeHandler);
+            
+            // 拖拽上传
+            uploadArea.addEventListener('dragover', uploadAreaDragOverHandler);
+            uploadArea.addEventListener('dragleave', uploadAreaDragLeaveHandler);
+            uploadArea.addEventListener('drop', uploadAreaDropHandler);
+            
+            // 上传图片函数
+            async function uploadImage(file) {
+                try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    // 使用postFormData函数，确保携带token
+                    const result = await postFormData('/admin/common/upload', formData);
+                    
+                    if (result.code === 1) {
+                        // 上传成功，保存URL到隐藏输入框
+                        imageUrlInput.value = result.data;
+                        
+                        // 显示预览
+                        previewImg.src = result.data;
+                        uploadContainer.style.display = 'none';
+                        previewContainer.style.display = 'flex';
+                        
+                        console.log('编辑图片上传成功:', result.data);
+                    } else {
+                        alert('图片上传失败: ' + result.msg);
+                        imageInput.value = '';
+                    }
+                } catch (error) {
+                    console.error('图片上传异常:', error);
+                    alert('图片上传异常，请稍后重试');
+                    imageInput.value = '';
+                }
+            }
+            
+            // 事件处理器函数
+            function changeImageClickHandler(e) {
+                e.preventDefault();
+                previewContainer.style.display = 'none';
+                uploadContainer.style.display = 'flex';
+            }
+            
+            function uploadAreaClickHandler() {
+                imageInput.click();
+            }
+            
+            function imageInputChangeHandler() {
+                if (imageInput.files && imageInput.files[0]) {
+                    uploadImage(imageInput.files[0]);
+                }
+            }
+            
+            function uploadAreaDragOverHandler(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#999';
+                uploadArea.style.backgroundColor = '#f9f9f9';
+            }
+            
+            function uploadAreaDragLeaveHandler(e) {
+                uploadArea.style.borderColor = '#ddd';
+                uploadArea.style.backgroundColor = 'white';
+            }
+            
+            function uploadAreaDropHandler(e) {
+                e.preventDefault();
+                uploadArea.style.borderColor = '#ddd';
+                uploadArea.style.backgroundColor = 'white';
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    uploadImage(e.dataTransfer.files[0]);
+                }
+            }
+        }
+        
+        // 设置添加图片上传事件
+        function setupAddImageUpload() {
+            const uploadContainer = document.getElementById('addUploadContainer');
+            const imageInput = document.getElementById('addItemImageInput');
+            const imageUrlInput = document.getElementById('addItemImageUrl');
+            const previewContainer = document.getElementById('addItemPreviewContainer');
+            const previewImg = document.getElementById('addItemPreviewImg');
+            const deleteBtn = document.getElementById('addItemDeleteBtn');
+            const uploadArea = document.getElementById('addUploadContainer');
+            
+            // 点击上传区域打开文件选择
+            uploadContainer.addEventListener('click', function() {
+                imageInput.click();
+            });
+            
+            // 文件选择变化事件
+            imageInput.addEventListener('change', async function() {
+                if (this.files && this.files[0]) {
+                    await uploadImage(this.files[0]);
+                }
+            });
+            
+            // 拖拽上传
+            uploadContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#999';
+                this.style.backgroundColor = '#f9f9f9';
+            });
+            
+            uploadContainer.addEventListener('dragleave', function(e) {
+                this.style.borderColor = '#ddd';
+                this.style.backgroundColor = 'white';
+            });
+            
+            uploadContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.style.borderColor = '#ddd';
+                this.style.backgroundColor = 'white';
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    uploadImage(e.dataTransfer.files[0]);
+                }
+            });
+            
+            // 删除图片
+            deleteBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                imageUrlInput.value = '';
+                imageInput.value = '';
+                previewContainer.style.display = 'none';
+                uploadArea.style.display = 'block';
+            });
+            
+            // 上传图片函数
+            async function uploadImage(file) {
+                try {
+                    const formData = new FormData();
+                    formData.append('file', file);
+                    
+                    // 使用postFormData函数，确保携带token
+                    const result = await postFormData('/admin/common/upload', formData);
+                    
+                    if (result.code === 1) {
+                        // 上传成功，保存URL到隐藏的输入框
+                        imageUrlInput.value = result.data;
+                        
+                        // 显示预览
+                        previewImg.src = result.data;
+                        previewContainer.style.display = 'block';
+                        uploadArea.style.display = 'none';
+                        
+                        console.log('图片上传成功:', result.data);
+                    } else {
+                        alert('图片上传失败: ' + result.msg);
+                        imageInput.value = '';
+                    }
+                } catch (error) {
+                    console.error('图片上传异常:', error);
+                    alert('图片上传异常，请稍后重试');
+                    imageInput.value = '';
+                }
             }
         }
         
