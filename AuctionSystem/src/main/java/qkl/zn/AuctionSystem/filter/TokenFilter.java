@@ -71,6 +71,7 @@ public class TokenFilter implements Filter {
         
         //验证令牌是否存在
         String token = request.getHeader("token");
+        log.info("接收到的token: {}", token);
         if (token==null|| token.isEmpty()){
             log.info("用户未登录");
             response.setStatus(401);
@@ -82,6 +83,7 @@ public class TokenFilter implements Filter {
         //验证令牌合法性
         try {
             Claims claims = JwtUtils.parseToken(token);
+            log.info("解析出的claims: {}", claims);
             
             // 保存用户信息到ThreadLocal供后续使用
             Long userId = claims.get("id") != null ? Long.valueOf(claims.get("id").toString()) : null;
@@ -93,6 +95,7 @@ public class TokenFilter implements Filter {
             log.info("当前用户信息 - ID：{}, Role：{}", userId, userRole);
             
         } catch (Exception e) {
+            log.error("令牌解析异常: ", e);
             log.info("令牌非法");
             response.setStatus(401);
             Result failResponse = Result.error("令牌非法，请重新登录");

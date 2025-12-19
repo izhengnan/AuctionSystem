@@ -41,6 +41,7 @@ public class ItemServiceImpl implements ItemService {
         BeanUtils.copyProperties(itemDTO, item);
         item.setCreateTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
+        item.setCurrentMaxPrice(item.getInitialPrice());
         item.setStatus(0); // 默认状态为0（未开始）
         itemMapper.addItem(item);
     }
@@ -54,22 +55,21 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item selectItemById(Long id) {
-        Item item = itemMapper.selectItemById(id);
-        return item;
+        return itemMapper.selectItemById(id);
     }
 
     @Override
-    public void deleteItemByIds(ArrayList<Long> id) {
-        itemMapper.deleteItemByIds(id);
+    public void deleteItemByIds(ArrayList<Long> ids) {
+        itemMapper.deleteItemByIds(ids);
     }
 
     @Override
     public void updateItem(ItemDTO itemDTO) {
         Item item = itemMapper.selectItemById(itemDTO.getId());
-        if(item.getStatus() == 0) {
+        if(item.getStatus() == 0||true) {
             BeanUtils.copyProperties(itemDTO, item);
             item.setUpdateTime(LocalDateTime.now());
-            itemMapper.updateItem(itemDTO);
+            itemMapper.updateItem(item);
         }else{
             throw new RuntimeException("该拍品已开始拍卖或已结束拍卖，不可修改");
         }

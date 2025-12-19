@@ -15,7 +15,7 @@ public interface ItemService {
     
     Item selectItemById(Long id);
 
-    void deleteItemByIds(ArrayList<Long> id);
+    void deleteItemByIds(ArrayList<Long> ids);
 
     void updateItem(ItemDTO itemDTO);
     

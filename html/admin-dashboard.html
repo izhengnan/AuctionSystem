@@ -51,7 +51,7 @@
                     <!-- 添加/修改拍品按钮 -->
                     <div class="mb-4">
                         <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addItemModal">添加拍品</button>
-                        <button class="btn btn-outline-secondary ms-2">批量删除</button>
+                        <button class="btn btn-outline-secondary ms-2" id="batchDeleteBtn">批量删除</button>
                     </div>
 
                     <!-- 拍品列表 -->
@@ -67,12 +67,14 @@
                                             <th>起拍价</th>
                                             <th>当前最高价</th>
                                             <th>状态</th>
+                                            <th>开始时间</th>
+                                            <th>结束时间</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td colspan="7" class="text-center py-5">
+                                            <td colspan="9" class="text-center py-5">
                                                 <div class="spinner-border text-primary" role="status">
                                                     <span class="visually-hidden">加载中...</span>
                                                 </div>
@@ -98,23 +100,25 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="addItemForm">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">拍品名称</label>
-                                <input type="text" class="form-control" required>
+                                <input type="text" id="addItemTitle" name="title" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">起拍价（元）</label>
-                                <input type="number" class="form-control" step="0.01" min="0" required>
+                                <input type="number" id="addItemInitialPrice" name="initialPrice" class="form-control" step="0.01" min="0" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><span style="color: red;">*</span> 拍品图片：</label>
+                            <!-- 隐藏的图片URL存储 -->
+                            <input type="hidden" id="addItemImageUrl" value="">
+                            
                             <div style="display: flex; gap: 30px; align-items: flex-start;">
                                 <!-- 上传区域 -->
-                                <div style="border: 2px dashed #ddd; border-radius: 4px; padding: 60px 40px; text-align: center; cursor: pointer; transition: all 0.3s; flex-shrink: 0; width: 300px;" 
-                                     class="add-upload-area"
+                                <div id="addUploadContainer" style="border: 2px dashed #ddd; border-radius: 4px; padding: 60px 40px; text-align: center; cursor: pointer; transition: all 0.3s; flex-shrink: 0; width: 300px;" 
                                      onmouseover="this.style.borderColor='#999'; this.style.backgroundColor='#f9f9f9';"
                                      onmouseout="this.style.borderColor='#ddd'; this.style.backgroundColor='white';">
                                     <div style="font-size: 32px; color: #999; margin-bottom: 10px;">↑</div>
@@ -133,77 +137,128 @@
                             </div>
                             
                             <!-- 图片预览区域 -->
-                            <div id="addItemPreview" style="margin-top: 20px; display: none;">
+                            <div id="addItemPreviewContainer" style="margin-top: 20px; display: none;">
                                 <div style="display: flex; gap: 30px; align-items: flex-start;">
                                     <div style="flex-shrink: 0;">
-                                        <img id="addItemImg" style="max-width: 300px; max-height: 250px; border-radius: 4px; border: 1px solid #eee;" />
+                                        <img id="addItemPreviewImg" style="max-width: 300px; max-height: 250px; border-radius: 4px; border: 1px solid #eee;" />
                                     </div>
                                     <div style="flex: 1; padding-top: 20px;">
-                                        <button type="button" class="btn btn-sm btn-outline-danger" onclick="document.getElementById('addItemImageInput').value = ''; document.getElementById('addItemPreview').style.display = 'none'; document.querySelector('.add-upload-area').style.display = 'flex'; document.querySelector('.add-info-text').style.display = 'block';">删除</button>
+                                        <button type="button" class="btn btn-sm btn-outline-danger" id="addItemDeleteBtn">删除</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         
                         <script>
-                            const addUploadArea = document.querySelector('.add-upload-area');
-                            const addImageInput = document.getElementById('addItemImageInput');
-                            
-                            addUploadArea.addEventListener('click', function() {
-                                addImageInput.click();
-                            });
-                            
-                            addImageInput.addEventListener('change', function() {
-                                if (this.files && this.files[0]) {
-                                    const reader = new FileReader();
-                                    reader.onload = function(e) {
-                                        document.getElementById('addItemImg').src = e.target.result;
-                                        document.getElementById('addItemPreview').style.display = 'block';
-                                        document.querySelector('.add-upload-area').style.display = 'none';
-                                        document.querySelector('.add-info-text').style.display = 'none';
-                                    };
-                                    reader.readAsDataURL(this.files[0]);
+                            // 添加拍品图片上传逻辑
+                            (function() {
+                                const uploadContainer = document.getElementById('addUploadContainer');
+                                const imageInput = document.getElementById('addItemImageInput');
+                                const imageUrlInput = document.getElementById('addItemImageUrl');
+                                const previewContainer = document.getElementById('addItemPreviewContainer');
+                                const previewImg = document.getElementById('addItemPreviewImg');
+                                const deleteBtn = document.getElementById('addItemDeleteBtn');
+                                const uploadArea = document.getElementById('addUploadContainer');
+                                
+                                // 点击上传区域打开文件选择
+                                uploadContainer.addEventListener('click', function() {
+                                    imageInput.click();
+                                });
+                                
+                                // 文件选择变化事件
+                                imageInput.addEventListener('change', async function() {
+                                    if (this.files && this.files[0]) {
+                                        await uploadImage(this.files[0]);
+                                    }
+                                });
+                                
+                                // 拖拽上传
+                                uploadContainer.addEventListener('dragover', function(e) {
+                                    e.preventDefault();
+                                    this.style.borderColor = '#999';
+                                    this.style.backgroundColor = '#f9f9f9';
+                                });
+                                
+                                uploadContainer.addEventListener('dragleave', function(e) {
+                                    this.style.borderColor = '#ddd';
+                                    this.style.backgroundColor = 'white';
+                                });
+                                
+                                uploadContainer.addEventListener('drop', function(e) {
+                                    e.preventDefault();
+                                    this.style.borderColor = '#ddd';
+                                    this.style.backgroundColor = 'white';
+                                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                                        uploadImage(e.dataTransfer.files[0]);
+                                    }
+                                });
+                                
+                                // 删除图片
+                                deleteBtn.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    imageUrlInput.value = '';
+                                    imageInput.value = '';
+                                    previewContainer.style.display = 'none';
+                                    uploadArea.style.display = 'block';
+                                });
+                                
+                                // 上传图片函数
+                                async function uploadImage(file) {
+                                    try {
+                                        const formData = new FormData();
+                                        formData.append('file', file);
+                                        
+                                        const response = await fetch('http://localhost:8080/admin/common/upload', {
+                                            method: 'POST',
+                                            body: formData,
+                                            headers: {
+                                                'token': localStorage.getItem('token') || ''
+                                            }
+                                        });
+                                        
+                                        const result = await response.json();
+                                        
+                                        if (result.code === 1) {
+                                            // 上传成功，保存URL到隐藏的输入框
+                                            imageUrlInput.value = result.data;
+                                            
+                                            // 显示预览
+                                            previewImg.src = result.data;
+                                            previewContainer.style.display = 'block';
+                                            uploadArea.style.display = 'none';
+                                            
+                                            console.log('图片上传成功:', result.data);
+                                        } else {
+                                            alert('图片上传失败: ' + result.msg);
+                                            imageInput.value = '';
+                                        }
+                                    } catch (error) {
+                                        console.error('图片上传异常:', error);
+                                        alert('图片上传异常，请稍后重试');
+                                        imageInput.value = '';
+                                    }
                                 }
-                            });
-                            
-                            addUploadArea.addEventListener('dragover', function(e) {
-                                e.preventDefault();
-                                this.style.borderColor = '#999';
-                                this.style.backgroundColor = '#f9f9f9';
-                            });
-                            
-                            addUploadArea.addEventListener('dragleave', function(e) {
-                                this.style.borderColor = '#ddd';
-                                this.style.backgroundColor = 'white';
-                            });
-                            
-                            addUploadArea.addEventListener('drop', function(e) {
-                                e.preventDefault();
-                                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                                    addImageInput.files = e.dataTransfer.files;
-                                    addImageInput.dispatchEvent(new Event('change'));
-                                }
-                            });
+                            })();
                         </script>
                         <div class="mb-3">
                             <label class="form-label">拍品描述</label>
-                            <textarea class="form-control" rows="3" required></textarea>
+                            <textarea id="addItemDesc" name="description" class="form-control" rows="3" required></textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">起拍时间</label>
-                                <input type="datetime-local" class="form-control" required>
+                                <input type="datetime-local" id="addItemStartTime" name="startTime" class="form-control" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">结束时间</label>
-                                <input type="datetime-local" class="form-control" required>
+                                <input type="datetime-local" id="addItemEndTime" name="endTime" class="form-control" required>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">保存</button>
+                    <button type="button" class="btn btn-primary" id="addItemSubmitBtn">保存</button>
                 </div>
             </div>
         </div>
@@ -218,24 +273,27 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="editItemForm">
+                        <input type="hidden" id="editItemId" name="id" value="1">
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">拍品名称</label>
-                                <input type="text" class="form-control" value="古董瓷器花瓶" required>
+                                <input type="text" id="editItemTitle" name="title" class="form-control" value="古董瓷器花瓶" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">起拍价（元）</label>
-                                <input type="number" class="form-control" step="0.01" min="0" value="2000.00" required>
+                                <input type="number" id="editItemInitialPrice" name="initialPrice" class="form-control" step="0.01" min="0" value="2000.00" required>
                             </div>
                         </div>
                         <div class="mb-3">
                             <label class="form-label"><span style="color: red;">*</span> 拍品图片：</label>
+                            <!-- 隐藏的图片URL存储 -->
+                            <input type="hidden" id="editItemImageUrl" value="">
                             
                             <!-- 已上传图片显示 -->
                             <div id="editItemPreviewContainer" style="display: flex; gap: 30px; align-items: flex-start;">
                                 <div style="flex-shrink: 0;">
-                                    <img id="editItemImg" src="https://picsum.photos/300/250?random=1" style="max-width: 300px; max-height: 250px; border-radius: 4px; border: 1px solid #eee;" />
+                                    <img id="editItemImg" src="" style="max-width: 300px; max-height: 250px; border-radius: 4px; border: 1px solid #eee;" />
                                 </div>
                                 <div style="flex: 1; padding-top: 20px;">
                                     <div style="font-size: 12px; color: #999; line-height: 1.8; margin-bottom: 15px;">
@@ -243,14 +301,13 @@
                                         <div style="margin-bottom: 8px;">仅能上传 PNG JPEG JPG 类型图片</div>
                                         <div>建议上传200*200或300*300尺寸的图片</div>
                                     </div>
-                                    <button type="button" class="btn btn-sm btn-outline-primary" onclick="document.querySelector('.edit-upload-area').style.display = 'flex'; document.getElementById('editItemPreviewContainer').style.display = 'none';">更换图片</button>
+                                    <button type="button" class="btn btn-sm btn-outline-primary" id="editChangeImageBtn">更换图片</button>
                                 </div>
                             </div>
                             
                             <!-- 上传区域 -->
-                            <div class="edit-upload-area" style="display: none; gap: 30px; align-items: flex-start;">
-                                <div style="border: 2px dashed #ddd; border-radius: 4px; padding: 60px 40px; text-align: center; cursor: pointer; transition: all 0.3s; flex-shrink: 0; width: 300px;" 
-                                     class="edit-upload-input"
+                            <div id="editUploadContainer" style="display: none; gap: 30px; align-items: flex-start;">
+                                <div id="editUploadArea" style="border: 2px dashed #ddd; border-radius: 4px; padding: 60px 40px; text-align: center; cursor: pointer; transition: all 0.3s; flex-shrink: 0; width: 300px;" 
                                      onmouseover="this.style.borderColor='#999'; this.style.backgroundColor='#f9f9f9';"
                                      onmouseout="this.style.borderColor='#ddd'; this.style.backgroundColor='white';">
                                     <div style="font-size: 32px; color: #999; margin-bottom: 10px;">↑</div>
@@ -270,63 +327,113 @@
                         </div>
                         
                         <script>
-                            const editUploadArea = document.querySelector('.edit-upload-input');
-                            const editImageInput = document.getElementById('editItemImageInput');
-                            
-                            editUploadArea.addEventListener('click', function() {
-                                editImageInput.click();
-                            });
-                            
-                            editImageInput.addEventListener('change', function() {
-                                if (this.files && this.files[0]) {
-                                    const reader = new FileReader();
-                                    reader.onload = function(e) {
-                                        document.getElementById('editItemImg').src = e.target.result;
-                                        document.querySelector('.edit-upload-area').style.display = 'none';
-                                        document.getElementById('editItemPreviewContainer').style.display = 'flex';
-                                    };
-                                    reader.readAsDataURL(this.files[0]);
+                            // 编辑拍品图片上传逻辑
+                            (function() {
+                                const imageUrlInput = document.getElementById('editItemImageUrl');
+                                const previewContainer = document.getElementById('editItemPreviewContainer');
+                                const previewImg = document.getElementById('editItemImg');
+                                const uploadContainer = document.getElementById('editUploadContainer');
+                                const uploadArea = document.getElementById('editUploadArea');
+                                const imageInput = document.getElementById('editItemImageInput');
+                                const changeImageBtn = document.getElementById('editChangeImageBtn');
+                                
+                                // 更换图片按钮
+                                changeImageBtn.addEventListener('click', function(e) {
+                                    e.preventDefault();
+                                    previewContainer.style.display = 'none';
+                                    uploadContainer.style.display = 'flex';
+                                });
+                                
+                                // 点击上传区域打开文件选择
+                                uploadArea.addEventListener('click', function() {
+                                    imageInput.click();
+                                });
+                                
+                                // 文件选择变化事件
+                                imageInput.addEventListener('change', async function() {
+                                    if (this.files && this.files[0]) {
+                                        await uploadImage(this.files[0]);
+                                    }
+                                });
+                                
+                                // 拖拽上传
+                                uploadArea.addEventListener('dragover', function(e) {
+                                    e.preventDefault();
+                                    this.style.borderColor = '#999';
+                                    this.style.backgroundColor = '#f9f9f9';
+                                });
+                                
+                                uploadArea.addEventListener('dragleave', function(e) {
+                                    this.style.borderColor = '#ddd';
+                                    this.style.backgroundColor = 'white';
+                                });
+                                
+                                uploadArea.addEventListener('drop', function(e) {
+                                    e.preventDefault();
+                                    this.style.borderColor = '#ddd';
+                                    this.style.backgroundColor = 'white';
+                                    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                                        uploadImage(e.dataTransfer.files[0]);
+                                    }
+                                });
+                                
+                                // 上传图片函数
+                                async function uploadImage(file) {
+                                    try {
+                                        const formData = new FormData();
+                                        formData.append('file', file);
+                                        
+                                        const response = await fetch('http://localhost:8080/admin/common/upload', {
+                                            method: 'POST',
+                                            body: formData,
+                                            headers: {
+                                                'token': localStorage.getItem('token') || ''
+                                            }
+                                        });
+                                        
+                                        const result = await response.json();
+                                        
+                                        if (result.code === 1) {
+                                            // 上传成功，保存URL到隐藏输入框
+                                            imageUrlInput.value = result.data;
+                                            
+                                            // 显示预览
+                                            previewImg.src = result.data;
+                                            uploadContainer.style.display = 'none';
+                                            previewContainer.style.display = 'flex';
+                                            
+                                            console.log('编辑图片上传成功:', result.data);
+                                        } else {
+                                            alert('图片上传失败: ' + result.msg);
+                                            imageInput.value = '';
+                                        }
+                                    } catch (error) {
+                                        console.error('图片上传异常:', error);
+                                        alert('图片上传异常，请稍后重试');
+                                        imageInput.value = '';
+                                    }
                                 }
-                            });
-                            
-                            editUploadArea.addEventListener('dragover', function(e) {
-                                e.preventDefault();
-                                this.style.borderColor = '#999';
-                                this.style.backgroundColor = '#f9f9f9';
-                            });
-                            
-                            editUploadArea.addEventListener('dragleave', function(e) {
-                                this.style.borderColor = '#ddd';
-                                this.style.backgroundColor = 'white';
-                            });
-                            
-                            editUploadArea.addEventListener('drop', function(e) {
-                                e.preventDefault();
-                                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
-                                    editImageInput.files = e.dataTransfer.files;
-                                    editImageInput.dispatchEvent(new Event('change'));
-                                }
-                            });
+                            })();
                         </script>
                         <div class="mb-3">
                             <label class="form-label">拍品描述</label>
-                            <textarea class="form-control" rows="3" required>此花瓶为清代中期官窑出品，器型规整，釉色温润，保存完好，具有较高的收藏价值。</textarea>
+                            <textarea id="editItemDesc" name="description" class="form-control" rows="3" required>此花瓶为清代中期官窑出品，器型规整，釉色温润，保存完好，具有较高的收藏价值。</textarea>
                         </div>
                         <div class="row mb-3">
                             <div class="col-md-6">
                                 <label class="form-label">起拍时间</label>
-                                <input type="datetime-local" class="form-control" value="2025-12-01T10:00" required>
+                                <input type="datetime-local" id="editItemStartTime" name="startTime" class="form-control" value="2025-12-01T10:00" required>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">结束时间</label>
-                                <input type="datetime-local" class="form-control" value="2025-12-31T23:59" required>
+                                <input type="datetime-local" id="editItemEndTime" name="endTime" class="form-control" value="2025-12-31T23:59" required>
                             </div>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
-                    <button type="button" class="btn btn-primary">保存修改</button>
+                    <button type="button" class="btn btn-primary" id="editItemSubmitBtn">保存修改</button>
                 </div>
             </div>
         </div>
@@ -337,9 +444,74 @@
     <script type="module">
         import { get, post, put, del, formatDateTime, formatCurrency } from './utils/request.js';
         
+
         // 页面加载完成后初始化
         document.addEventListener('DOMContentLoaded', function() {
             loadItemList();
+            
+            // 添加拍品按钮点击事件
+            document.getElementById('addItemSubmitBtn').addEventListener('click', function() {
+                // 手动触发表单提交
+                document.getElementById('addItemForm').dispatchEvent(new Event('submit'));
+            });
+                        
+            // 编辑拍品按钮点击事件
+            document.getElementById('editItemSubmitBtn').addEventListener('click', function() {
+                // 手动触发表单提交
+                document.getElementById('editItemForm').dispatchEvent(new Event('submit'));
+            });
+            
+            // 批量删除按钮点击事件
+            document.getElementById('batchDeleteBtn').addEventListener('click', function() {
+                batchDeleteItems();
+            });
+            
+            // 表头全选复选框事件
+            document.querySelector('thead input[type="checkbox"]').addEventListener('change', function() {
+                const isChecked = this.checked;
+                document.querySelectorAll('tbody input[type="checkbox"]').forEach(checkbox => {
+                    checkbox.checked = isChecked;
+                });
+            });
+            
+            // 编辑拍品表单提交事件
+            document.getElementById('editItemForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                // 从隐藏输入框读取图片URL
+                const imageUrl = document.getElementById('editItemImageUrl').value;
+                
+                const itemData = {
+                    id: parseInt(document.getElementById('editItemId').value),
+                    title: document.getElementById('editItemTitle').value,
+                    initialPrice: parseFloat(document.getElementById('editItemInitialPrice').value),
+                    description: document.getElementById('editItemDesc').value,
+                    startTime: document.getElementById('editItemStartTime').value,
+                    endTime: document.getElementById('editItemEndTime').value,
+                    image: imageUrl // 从隐藏输入框中读取，即使不改也会有值
+                };
+                
+                console.log('编辑拍品数据:', itemData);
+                
+                try {
+                    const response = await put('/item/update', itemData);
+                    
+                    if (response.code === 1) {
+                        alert('修改成功！');
+                        const editModal = bootstrap.Modal.getInstance(document.getElementById('editItemModal'));
+                        editModal.hide();
+                        // 重新加载拍品列表
+                        loadItemList();
+                        // 清空图片URL
+                        document.getElementById('editItemImageUrl').value = '';
+                    } else {
+                        alert('修改失败: ' + response.msg);
+                    }
+                } catch (error) {
+                    console.error('修改异常:', error);
+                    alert('修改异常，请稍后重试');
+                }
+            });
         });
         
         // 加载拍品列表
@@ -369,7 +541,7 @@
             
             if (!items || items.length === 0) {
                 const tr = document.createElement('tr');
-                tr.innerHTML = '<td colspan="7" class="text-center text-muted">暂无拍品数据</td>';
+                tr.innerHTML = '<td colspan="9" class="text-center text-muted">暂无拍品数据</td>';
                 tbody.appendChild(tr);
                 return;
             }
@@ -400,9 +572,11 @@
                 }
                 
                 tr.innerHTML = `
+                    <td><input type="checkbox" data-id="${item.id}"></td>
                     <td>${item.id}</td>
                     <td>${item.title}</td>
                     <td>${formatCurrency(item.initialPrice)}</td>
+                    <td>${formatCurrency(item.currentMaxPrice || 0)}</td>
                     <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>${formatDateTime(item.startTime)}</td>
                     <td>${formatDateTime(item.endTime)}</td>
@@ -449,16 +623,20 @@
                     // 处理图片显示
                     const editItemImg = document.getElementById('editItemImg');
                     const editItemPreviewContainer = document.getElementById('editItemPreviewContainer');
-                    const editUploadArea = document.querySelector('.edit-upload-area');
+                    const editUploadContainer = document.getElementById('editUploadContainer');
+                    const imageUrlInput = document.getElementById('editItemImageUrl');
                     
                     if (item.image) {
+                        // 保存原始图片URL到隐藏输入框
+                        imageUrlInput.value = item.image;
                         editItemImg.src = item.image;
                         editItemPreviewContainer.style.display = 'flex';
-                        editUploadArea.style.display = 'none';
+                        editUploadContainer.style.display = 'none';
                     } else {
                         // 如果没有图片，显示上传区域
                         editItemPreviewContainer.style.display = 'none';
-                        editUploadArea.style.display = 'flex';
+                        editUploadContainer.style.display = 'flex';
+                        imageUrlInput.value = ''; // 清空图片URL
                     }
                     
                     // 显示编辑模态框
@@ -480,7 +658,7 @@
             }
             
             try {
-                const response = await del('/item', { ids: itemId });
+                const response = await del('/item', { ids: [itemId] });
                 
                 if (response.code === 1) {
                     alert('删除成功！');
@@ -495,18 +673,64 @@
             }
         }
         
+        // 批量删除拍品
+        async function batchDeleteItems() {
+            // 获取所有选中的复选框
+            const selectedCheckboxes = document.querySelectorAll('tbody input[type="checkbox"]:checked');
+            
+            if (selectedCheckboxes.length === 0) {
+                alert('请至少选择一个拍品进行删除');
+                return;
+            }
+            
+            // 获取选中的拍品ID
+            const itemIds = Array.from(selectedCheckboxes).map(checkbox => parseInt(checkbox.dataset.id));
+            
+            if (!confirm(`确定要删除选中的 ${itemIds.length} 个拍品吗？`)) {
+                return;
+            }
+            
+            try {
+                const response = await del('/item', { ids: itemIds });
+                
+                if (response.code === 1) {
+                    alert('批量删除成功！');
+                    // 重新加载拍品列表
+                    loadItemList();
+                    // 取消全选
+                    document.querySelector('thead input[type="checkbox"]').checked = false;
+                } else {
+                    alert('批量删除失败: ' + response.msg);
+                }
+            } catch (error) {
+                console.error('批量删除异常:', error);
+                alert('批量删除异常，请稍后重试');
+            }
+        }
+        
         // 添加拍品表单提交事件
         document.getElementById('addItemForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const formData = new FormData(this);
+            // 从隐藏输入框读取图片URL
+            const imageUrl = document.getElementById('addItemImageUrl').value;
+            
+            // 验证图片是否已上传
+            if (!imageUrl || imageUrl.trim() === '') {
+                alert('请先上传拍品图片');
+                return;
+            }
+            
             const itemData = {
-                title: formData.get('title'),
-                initialPrice: parseFloat(formData.get('initialPrice')),
-                description: formData.get('description'),
-                startTime: formData.get('startTime'),
-                endTime: formData.get('endTime')
+                title: document.getElementById('addItemTitle').value,
+                initialPrice: parseFloat(document.getElementById('addItemInitialPrice').value),
+                description: document.getElementById('addItemDesc').value,
+                startTime: document.getElementById('addItemStartTime').value,
+                endTime: document.getElementById('addItemEndTime').value,
+                image: imageUrl // 从隐藏输入框中读取
             };
+            
+            console.log('添加拍品数据:', itemData);
             
             try {
                 const response = await put('/item/add', itemData);
@@ -517,44 +741,18 @@
                     addModal.hide();
                     // 重新加载拍品列表
                     loadItemList();
+                    // 清空表单
+                    document.getElementById('addItemForm').reset();
+                    document.getElementById('addItemImageUrl').value = '';
+                    document.getElementById('addItemImageInput').value = '';
+                    document.getElementById('addItemPreviewContainer').style.display = 'none';
+                    document.getElementById('addUploadContainer').style.display = 'block';
                 } else {
                     alert('添加失败: ' + response.msg);
                 }
             } catch (error) {
                 console.error('添加异常:', error);
                 alert('添加异常，请稍后重试');
-            }
-        });
-        
-        // 编辑拍品表单提交事件
-        document.getElementById('editItemForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const formData = new FormData(this);
-            const itemData = {
-                id: parseInt(formData.get('id')),
-                title: formData.get('title'),
-                initialPrice: parseFloat(formData.get('initialPrice')),
-                description: formData.get('description'),
-                startTime: formData.get('startTime'),
-                endTime: formData.get('endTime')
-            };
-            
-            try {
-                const response = await put('/item/update', itemData);
-                
-                if (response.code === 1) {
-                    alert('修改成功！');
-                    const editModal = bootstrap.Modal.getInstance(document.getElementById('editItemModal'));
-                    editModal.hide();
-                    // 重新加载拍品列表
-                    loadItemList();
-                } else {
-                    alert('修改失败: ' + response.msg);
-                }
-            } catch (error) {
-                console.error('修改异常:', error);
-                alert('修改异常，请稍后重试');
             }
         });
         

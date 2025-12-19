@@ -49,6 +49,11 @@ public class OrderServiceImpl implements OrderService {
     public List<Order> getMyOrders() {
         // 获取当前用户ID
         Long userId = TokenFilter.getCurrentUserId();
+        
+        // 检查用户是否已登录
+        if (userId == null) {
+            throw new RuntimeException("用户未登录，请先登录");
+        }
 
         // 构造区块链调用参数
         AuctionSystemGetOrdersByUserInputBO input = new AuctionSystemGetOrdersByUserInputBO();

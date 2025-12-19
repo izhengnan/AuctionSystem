@@ -9,6 +9,8 @@ import qkl.zn.AuctionSystem.pojo.entity.Item;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 @Mapper
 public interface ItemMapper {
     void addItem(Item item);
@@ -17,9 +19,9 @@ public interface ItemMapper {
     
     Item selectItemById(Long id);
 
-    void deleteItemByIds(ArrayList<Long> ids);
+    void deleteItemByIds(@Param("ids") ArrayList<Long> ids);
 
-    void updateItem(ItemDTO itemDTO);
+    void updateItem(Item item);
     
     List<Item> selectAllItems();
     

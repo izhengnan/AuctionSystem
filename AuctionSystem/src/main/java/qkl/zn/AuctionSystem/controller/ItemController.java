@@ -24,12 +24,6 @@ public class ItemController {
     @PutMapping("/add")
     public Result addItem(@RequestBody ItemDTO itemDTO){
         log.info("添加拍品:{}", itemDTO);
-        
-        // 检查权限：只有管理员可以添加拍品
-        if (!PermissionChecker.isAdmin()) {
-            return Result.error("权限不足，只有管理员可以添加拍品");
-        }
-        
         itemService.addItem(itemDTO);
         return Result.success();
     }
@@ -48,27 +42,15 @@ public class ItemController {
         return Result.success(item);
     }
     @DeleteMapping()
-    public Result deleteItemByIds(@RequestParam("ids") ArrayList<Long> id){
-        log.info("删除拍品:{}", id);
-        
-        // 检查权限：只有管理员可以删除拍品
-        if (!PermissionChecker.isAdmin()) {
-            return Result.error("权限不足，只有管理员可以删除拍品");
-        }
-        
-        itemService.deleteItemByIds(id);
+    public Result deleteItemByIds(@RequestParam("ids") ArrayList<Long> ids){
+        log.info("删除拍品:{}", ids);
+        itemService.deleteItemByIds(ids);
         return Result.success();
     }
 
     @PutMapping("update")
     public Result updateItem(@RequestBody ItemDTO itemDTO){
         log.info("更新拍品:{}", itemDTO);
-        
-        // 检查权限：只有管理员可以更新拍品
-        if (!PermissionChecker.isAdmin()) {
-            return Result.error("权限不足，只有管理员可以更新拍品");
-        }
-        
         itemService.updateItem(itemDTO);
         return Result.success();
     }
