@@ -25,7 +25,7 @@ public class BidController {
     private AuctionSystemService auctionSystemService;
 
     @PostMapping
-    public Result bidPrice(BidDTO bidDTO){
+    public Result bidPrice(@RequestBody BidDTO bidDTO){
         log.info("用户出价:{}", bidDTO);
         bidService.bidPrice(bidDTO);
         return Result.success();

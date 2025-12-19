@@ -82,8 +82,8 @@ qkl/zn/AuctionSystem/pojo/entity/Order.java
  qkl.zn.AuctionSystem.pojo.entity.Order$OrderBuilder
 qkl/zn/AuctionSystem/model/bo/AuctionSystemOrdersInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemOrdersInputBO
-qkl/zn/AuctionSystem/controller/BidController.java
- qkl.zn.AuctionSystem.controller.BidController
+qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java
+ qkl.zn.AuctionSystem.service.impl.ItemServiceImpl
 qkl/zn/AuctionSystem/model/bo/AuctionSystemPayOrderInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemPayOrderInputBO
 qkl/zn/AuctionSystem/controller/AdminController.java
@@ -151,7 +151,7 @@ qkl/zn/AuctionSystem/service/ItemService.java
  qkl.zn.AuctionSystem.service.ItemService
 qkl/zn/AuctionSystem/mapper/ItemMapper.java
  qkl.zn.AuctionSystem.mapper.ItemMapper
+qkl/zn/AuctionSystem/controller/BidController.java
+ qkl.zn.AuctionSystem.controller.BidController
 qkl/zn/AuctionSystem/service/impl/BidServiceImpl.java
  qkl.zn.AuctionSystem.service.impl.BidServiceImpl
-qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java
- qkl.zn.AuctionSystem.service.impl.ItemServiceImpl
