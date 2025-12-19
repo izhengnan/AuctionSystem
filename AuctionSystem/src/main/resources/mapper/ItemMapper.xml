@@ -77,4 +77,10 @@
     <update id="updateItemStatus">
         update t_auction_item set status = #{status} where id = #{id}
     </update>
+
+    <update id="updateCurrentMaxPrice">
+        update t_auction_item
+        set current_max_price = #{currentMaxPrice}, current_max_user_id = #{currentMaxUserId}
+        where id = #{itemId} and (current_max_price is null or current_max_price <![CDATA[ < ]]>  #{currentMaxPrice})
+    </update>
 </mapper>

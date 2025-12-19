@@ -48,6 +48,9 @@ public class BidServiceImpl implements BidService {
         try {
             // 调用区块链合约记录出价
             auctionSystemService.recordBid(input);
+            
+            // 区块链记录成功后再更新数据库中的最高出价
+            itemService.updateCurrentMaxPrice(bidDTO.getItemId(), bidDTO.getBidPrice(), userId);
         } catch (Exception e) {
             throw new RuntimeException("区块链出价记录失败: " + e.getMessage(), e);
         }

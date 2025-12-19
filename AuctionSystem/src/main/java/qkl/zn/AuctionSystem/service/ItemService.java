@@ -22,4 +22,6 @@ public interface ItemService {
     List<Item> getAllItems();
     
     void updateItemStatus(Long id, Integer status);
+        
+        void updateCurrentMaxPrice(Long itemId, Long currentMaxPrice, Long currentMaxUserId);
 }

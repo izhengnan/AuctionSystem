@@ -18,4 +18,5 @@ public class Order {
     private Long dealPrice;
     private Integer status; // 状态由合约生成
     private LocalDateTime updateTime;
+    private String itemTitle; // 拍品名称，用于前端显示
 }

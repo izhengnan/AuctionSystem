@@ -84,6 +84,11 @@ public class ItemServiceImpl implements ItemService {
         itemMapper.updateItemStatus(id, status);
     }
     
+    @Override
+    public void updateCurrentMaxPrice(Long itemId, Long currentMaxPrice, Long currentMaxUserId) {
+        itemMapper.updateCurrentMaxPrice(itemId, currentMaxPrice, currentMaxUserId);
+    }
+    
     /**
      * 定时任务：每分钟检查拍品状态并更新
      * 状态规则：

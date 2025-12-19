@@ -282,15 +282,25 @@
                 return;
             }
             
-            // 区块链返回的数据结构可能不同，需要适配
-            // 假设records是一个数组，每个元素包含bidTime, userId, bidPrice字段
+            // 区块链返回的数据结构：bidTime(秒级时间戳), userId, bidPrice
             records.forEach(record => {
                 const tr = document.createElement('tr');
-                // 注意：区块链返回的数据结构可能需要调整
+                
+                // 时间戳是秒级的，需要乘以1000转为毫秒
+                const timestamp = typeof record.bidTime === 'number' ? record.bidTime : 0;
+                const bidDate = new Date(timestamp * 1000);
+                const formattedTime = formatDateTime(bidDate);
+                
+                // userId 或 bidderId
+                const userId = record.userId || record.bidderId || '匿名用户';
+                
+                // bidPrice 需要格式化为货币
+                const bidPrice = formatCurrency(record.bidPrice);
+                
                 tr.innerHTML = `
-                    <td>${formatDateTime(new Date(record.bidTime * 1000))}</td>
-                    <td>${record.userId || record.bidderId || '匿名用户'}</td>
-                    <td>${formatCurrency(record.bidPrice)}</td>
+                    <td>${formattedTime}</td>
+                    <td>${userId}</td>
+                    <td>${bidPrice}</td>
                 `;
                 tbody.appendChild(tr);
             });

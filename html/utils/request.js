@@ -124,5 +124,6 @@ export function formatDateTime(dateString) {
 
 // 格式化货币
 export function formatCurrency(amount) {
-    return '¥' + parseFloat(amount).toFixed(2);
+    const yuan = parseFloat(amount) || 0;
+    return '¥' + yuan.toFixed(2);
 }
