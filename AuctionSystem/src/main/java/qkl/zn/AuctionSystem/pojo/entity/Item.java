@@ -26,6 +26,7 @@ public class Item {
     private Long currentMaxPrice;
     private Long currentMaxUserId;
     private Integer status;
+    private Integer listingStatus;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createTime;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")

@@ -42,6 +42,7 @@ public class ItemServiceImpl implements ItemService {
         item.setCreateTime(LocalDateTime.now());
         item.setUpdateTime(LocalDateTime.now());
         item.setStatus(0); // 默认状态为0（未开始）
+        item.setListingStatus(0);//默认上架状态为0（下架中）
         itemMapper.addItem(item);
     }
 
@@ -59,18 +60,24 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public void deleteItemByIds(ArrayList<Long> ids) {
+        ArrayList<Integer> listingStatusList =  itemMapper.selectItemListingStatusByIds(ids);
+        for (Integer listingStatus : listingStatusList){
+            if (listingStatus == 1) {
+                throw new RuntimeException("该拍品已上架，不可删除");
+            }
+        }
         itemMapper.deleteItemByIds(ids);
     }
 
     @Override
     public void updateItem(ItemDTO itemDTO) {
         Item item = itemMapper.selectItemById(itemDTO.getId());
-        if(item.getStatus() == 0||true) {
+        if(item.getListingStatus() == 0) {
             BeanUtils.copyProperties(itemDTO, item);
             item.setUpdateTime(LocalDateTime.now());
             itemMapper.updateItem(item);
         }else{
-            throw new RuntimeException("该拍品已开始拍卖或已结束拍卖，不可修改");
+            throw new RuntimeException("该拍品已上架，不可修改");
         }
     }
     
@@ -88,7 +95,12 @@ public class ItemServiceImpl implements ItemService {
     public void updateCurrentMaxPrice(Long itemId, Long currentMaxPrice, Long currentMaxUserId) {
         itemMapper.updateCurrentMaxPrice(itemId, currentMaxPrice, currentMaxUserId);
     }
-    
+
+    @Override
+    public void updateItemlistingStatusById(Long id, Integer listingStatus) {
+        itemMapper.updateItemlistingStatusById(id,listingStatus);
+    }
+
     /**
      * 定时任务：每分钟检查拍品状态并更新
      * 状态规则：

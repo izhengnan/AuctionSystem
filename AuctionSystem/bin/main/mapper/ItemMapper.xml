@@ -16,6 +16,7 @@
         <if test="currentMaxPrice != null">current_max_price,</if>
         <if test="currentMaxUserId != null">current_max_user_id,</if>
         <if test="status != null">status,</if>
+        <if test="listingStatus != null">listingStatus,</if>
         <if test="createTime != null">create_time,</if>
         <if test="updateTime != null">update_time,</if>
         </trim>
@@ -31,6 +32,7 @@
         <if test="currentMaxPrice != null">#{currentMaxPrice},</if>
         <if test="currentMaxUserId != null">#{currentMaxUserId},</if>
         <if test="status != null">#{status},</if>
+        <if test="listingStatus != null">#{listingStatus},</if>
         <if test="createTime != null">#{createTime},</if>
         <if test="updateTime != null">#{updateTime},</if>
         </trim>
@@ -43,6 +45,7 @@
             <if test="status != null">and status = #{status}</if>
             <if test="minPrice != null">and current_max_price >= #{minPrice}</if>
             <if test="maxPrice != null">and current_max_price <![CDATA[ <= ]]> #{maxPrice}</if>
+            and listing_status = 1
         </where>
     </select>
     
@@ -73,7 +76,13 @@
     <select id="selectAllItems" resultType="qkl.zn.AuctionSystem.pojo.entity.Item">
         select * from t_auction_item
     </select>
-    
+    <select id="selectItemListingStatusByIds" resultType="java.lang.Integer">
+        select listing_status from t_auction_item where id in
+        <foreach collection="ids" item="id" open="(" close=")" separator=",">
+            #{id}
+        </foreach>
+    </select>
+
     <update id="updateItemStatus">
         update t_auction_item set status = #{status} where id = #{id}
     </update>
@@ -82,5 +91,10 @@
         update t_auction_item 
         set current_max_price = #{currentMaxPrice}, current_max_user_id = #{currentMaxUserId}
         where id = #{itemId} and (current_max_price is null or current_max_price <![CDATA[ < ]]> #{currentMaxPrice})
+    </update>
+    <update id="updateItemlistingStatusById">
+        update t_auction_item
+        set listing_status = #{listingStatus}
+        where id = #{id}
     </update>
 </mapper>

@@ -27,5 +27,9 @@ public interface ItemMapper {
     
     void updateItemStatus(Long id, Integer status);
         
-        void updateCurrentMaxPrice(Long itemId, Long currentMaxPrice, Long currentMaxUserId);
+    void updateCurrentMaxPrice(Long itemId, Long currentMaxPrice, Long currentMaxUserId);
+
+    ArrayList<Integer> selectItemListingStatusByIds(ArrayList<Long> ids);
+
+    void updateItemlistingStatusById(Long id, Integer listingStatus);
 }

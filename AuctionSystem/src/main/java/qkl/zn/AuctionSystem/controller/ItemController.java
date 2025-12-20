@@ -68,4 +68,11 @@ public class ItemController {
         itemService.updateItem(itemDTO);
         return Result.success();
     }
+
+    @PutMapping("/{listingStatus}")
+    public Result updateItemlistingStatusById(@PathVariable Integer listingStatus,Long id){
+        log.info("更新拍品id为{}的拍品的上架状态:{}",id, listingStatus);
+        itemService.updateItemlistingStatusById(id, listingStatus);
+        return Result.success();
+    }
 }

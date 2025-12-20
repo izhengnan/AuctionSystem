@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d6a2e817-4146-49d3-aa07-c0f85ef1829a" name="更改" comment="添加管理员权限验证和拍品管理功能&#10;&#10;- 在 CommonController 和 ItemController 中添加管理员权限检查&#10;- 限制文件上传、拍品添加、删除和修改功能仅管理员可用&#10;- 更新导航栏标题从&quot;极简拍卖系统&quot;为&quot;拍卖系统&quot;&#10;- 修改搜索参数 keyword 为 title 以匹配后端接口&#10;- 优化用户订单页面的登录状态检查和导航栏动态加载&#10;- 改进日期时间格式化函数实现&#10;- 修复订单详情按钮跳转逻辑，使用 itemId 参数&#10;- 添加查看拍品详情功能到用户订单页面&#10;- 更新相关 HTML 页面结构和 JavaScript 逻辑">
+    <list default="true" id="d6a2e817-4146-49d3-aa07-c0f85ef1829a" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -12,16 +12,28 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.6.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources/4f6facf5-1f67-435b-b9c7-ed530af18b7b.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/4f6facf5-1f67-435b-b9c7-ed530af18b7b.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/controller/AdminController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/controller/AdminController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/filter/TokenFilter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/mapper/ItemMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/mapper/ItemMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/ItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/controller/ItemController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/mapper/ItemMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/mapper/ItemMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/pojo/entity/Item$ItemBuilder.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/pojo/entity/Item$ItemBuilder.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/pojo/entity/Item.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/pojo/entity/Item.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/ItemService.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/ItemService.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/bin/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/controller/ItemController.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/controller/ItemController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/mapper/ItemMapper.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/mapper/ItemMapper.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/java/main/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/resources/main/mapper/ItemMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/build/resources/main/mapper/ItemMapper.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" beforeDir="false" afterPath="$PROJECT_DIR$/build/tmp/compileJava/source-classes-mapping.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/AdminController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/filter/TokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/filter/TokenFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../html/admin-dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html/admin-dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../html/admin-login.html" beforeDir="false" afterPath="$PROJECT_DIR$/../html/admin-login.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/ItemController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/controller/ItemController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/mapper/ItemMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/mapper/ItemMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/pojo/entity/Item.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/pojo/entity/Item.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/ItemService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/ItemService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mapper/ItemMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mapper/ItemMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../说明.md" beforeDir="false" afterPath="$PROJECT_DIR$/../说明.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -190,6 +202,7 @@
       <workItem from="1766063941058" duration="7057000" />
       <workItem from="1766110477345" duration="2451000" />
       <workItem from="1766118774231" duration="22370000" />
+      <workItem from="1766198272507" duration="1530000" />
     </task>
     <task id="LOCAL-00001" summary="添加阿里云OSS配置并优化合约代码&#10;&#10;- 在 application.properties 中新增阿里云 OSS 相关配置项&#10;- 移除 AuctionSystem.java 中冗余的包声明&#10;- 添加 Tuple1 和 Tuple2 类型导入以支持更复杂的返回值结构&#10;- 更新 AuctionSystem 合约二进制数组内容&#10;- 清理 .gitignore 文件中不必要的 IDE 忽略规则">
       <option name="closed" value="true" />
@@ -271,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1766161632374</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="添加管理员权限验证和拍品管理功能&#10;&#10;- 在 CommonController 和 ItemController 中添加管理员权限检查&#10;- 限制文件上传、拍品添加、删除和修改功能仅管理员可用&#10;- 更新导航栏标题从&quot;极简拍卖系统&quot;为&quot;拍卖系统&quot;&#10;- 修改搜索参数 keyword 为 title 以匹配后端接口&#10;- 优化用户订单页面的登录状态检查和导航栏动态加载&#10;- 改进日期时间格式化函数实现&#10;- 修复订单详情按钮跳转逻辑，使用 itemId 参数&#10;- 添加查看拍品详情功能到用户订单页面&#10;- 更新相关 HTML 页面结构和 JavaScript 逻辑">
+      <option name="closed" value="true" />
+      <created>1766162788665</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1766162788665</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

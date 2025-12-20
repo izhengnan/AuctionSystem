@@ -14,9 +14,8 @@ qkl/zn/AuctionSystem/model/CommonResponse.java
  qkl.zn.AuctionSystem.model.CommonResponse
 qkl/zn/AuctionSystem/result/Result.java
  qkl.zn.AuctionSystem.result.Result
-qkl/zn/AuctionSystem/pojo/entity/Item.java
- qkl.zn.AuctionSystem.pojo.entity.Item
- qkl.zn.AuctionSystem.pojo.entity.Item$ItemBuilder
+qkl/zn/AuctionSystem/result/PageResult.java
+ qkl.zn.AuctionSystem.result.PageResult
 qkl/zn/AuctionSystem/service/BidService.java
  qkl.zn.AuctionSystem.service.BidService
 qkl/zn/AuctionSystem/pojo/entity/Order.java
@@ -55,22 +54,23 @@ qkl/zn/AuctionSystem/model/bo/AuctionSystemGetOrdersByUserInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemGetOrdersByUserInputBO
 qkl/zn/AuctionSystem/model/bo/AuctionSystemBidRecordsInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemBidRecordsInputBO
-qkl/zn/AuctionSystem/controller/ItemController.java
- qkl.zn.AuctionSystem.controller.ItemController
+qkl/zn/AuctionSystem/pojo/entity/Item.java
+ qkl.zn.AuctionSystem.pojo.entity.Item
+ qkl.zn.AuctionSystem.pojo.entity.Item$ItemBuilder
 qkl/zn/AuctionSystem/pojo/dto/ItemDTO.java
  qkl.zn.AuctionSystem.pojo.dto.ItemDTO
 qkl/zn/AuctionSystem/mapper/OrderMapper.java
  qkl.zn.AuctionSystem.mapper.OrderMapper
 qkl/zn/AuctionSystem/model/bo/AuctionSystemGetBidRecordsByItemInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemGetBidRecordsByItemInputBO
-qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java
- qkl.zn.AuctionSystem.service.impl.ItemServiceImpl
+qkl/zn/AuctionSystem/filter/TokenFilter.java
+ qkl.zn.AuctionSystem.filter.TokenFilter
 qkl/zn/AuctionSystem/service/AuctionSystemService.java
  qkl.zn.AuctionSystem.service.AuctionSystemService
 qkl/zn/AuctionSystem/model/bo/AuctionSystemUserOrdersInputBO.java
  qkl.zn.AuctionSystem.model.bo.AuctionSystemUserOrdersInputBO
-qkl/zn/AuctionSystem/service/ItemService.java
- qkl.zn.AuctionSystem.service.ItemService
+qkl/zn/AuctionSystem/controller/AdminController.java
+ qkl.zn.AuctionSystem.controller.AdminController
 qkl/zn/AuctionSystem/mapper/UserMapper.java
  qkl.zn.AuctionSystem.mapper.UserMapper
 qkl/zn/AuctionSystem/service/UserService.java
@@ -133,8 +133,8 @@ qkl/zn/AuctionSystem/raw/AuctionSystem.java
  AuctionSystem$OrderPaidEventResponse
 qkl/zn/AuctionSystem/controller/OrderController.java
  qkl.zn.AuctionSystem.controller.OrderController
-qkl/zn/AuctionSystem/mapper/ItemMapper.java
- qkl.zn.AuctionSystem.mapper.ItemMapper
+qkl/zn/AuctionSystem/utils/PermissionChecker.java
+ qkl.zn.AuctionSystem.utils.PermissionChecker
 qkl/zn/AuctionSystem/utils/JwtUtils.java
  qkl.zn.AuctionSystem.utils.JwtUtils
 qkl/zn/AuctionSystem/model/bo/AuctionSystemItemBidRecordsInputBO.java
@@ -147,15 +147,15 @@ qkl/zn/AuctionSystem/pojo/dto/ItemPageQueryDTO.java
  qkl.zn.AuctionSystem.pojo.dto.ItemPageQueryDTO
 qkl/zn/AuctionSystem/Application.java
  qkl.zn.AuctionSystem.Application
-qkl/zn/AuctionSystem/result/PageResult.java
- qkl.zn.AuctionSystem.result.PageResult
 qkl/zn/AuctionSystem/service/impl/OrderServiceImpl.java
  qkl.zn.AuctionSystem.service.impl.OrderServiceImpl
-qkl/zn/AuctionSystem/filter/TokenFilter.java
- qkl.zn.AuctionSystem.filter.TokenFilter
-qkl/zn/AuctionSystem/utils/PermissionChecker.java
- qkl.zn.AuctionSystem.utils.PermissionChecker
+qkl/zn/AuctionSystem/controller/ItemController.java
+ qkl.zn.AuctionSystem.controller.ItemController
+qkl/zn/AuctionSystem/service/impl/ItemServiceImpl.java
+ qkl.zn.AuctionSystem.service.impl.ItemServiceImpl
+qkl/zn/AuctionSystem/mapper/ItemMapper.java
+ qkl.zn.AuctionSystem.mapper.ItemMapper
 qkl/zn/AuctionSystem/service/impl/BidServiceImpl.java
  qkl.zn.AuctionSystem.service.impl.BidServiceImpl
-qkl/zn/AuctionSystem/controller/AdminController.java
- qkl.zn.AuctionSystem.controller.AdminController
+qkl/zn/AuctionSystem/service/ItemService.java
+ qkl.zn.AuctionSystem.service.ItemService
