@@ -82,6 +82,15 @@
             #{id}
         </foreach>
     </select>
+    <select id="selectItemListByAdmin" resultType="qkl.zn.AuctionSystem.pojo.entity.Item">
+        select * from t_auction_item
+        <where>
+            <if test="title != null">and title like concat('%',#{title},'%')</if>
+            <if test="status != null">and status = #{status}</if>
+            <if test="minPrice != null">and current_max_price >= #{minPrice}</if>
+            <if test="maxPrice != null">and current_max_price <![CDATA[ <= ]]> #{maxPrice}</if>
+        </where>
+    </select>
 
     <update id="updateItemStatus">
         update t_auction_item set status = #{status} where id = #{id}

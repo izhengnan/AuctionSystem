@@ -32,4 +32,6 @@ public interface ItemMapper {
     ArrayList<Integer> selectItemListingStatusByIds(ArrayList<Long> ids);
 
     void updateItemlistingStatusById(Long id, Integer listingStatus);
+
+    Page<Item> selectItemListByAdmin(ItemPageQueryDTO itemPageQueryDTO);
 }

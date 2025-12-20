@@ -26,4 +26,6 @@ public interface ItemService {
     void updateCurrentMaxPrice(Long itemId, Long currentMaxPrice, Long currentMaxUserId);
 
     void updateItemlistingStatusById(Long id, Integer listingStatus);
+
+    PageResult selectItemListByAdmin(ItemPageQueryDTO itemPageQueryDTO);
 }

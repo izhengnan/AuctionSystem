@@ -38,6 +38,13 @@ public class ItemController {
         PageResult pageResult = itemService.selectItemList(itemPageQueryDTO);
         return Result.success(pageResult);
     }
+
+    @GetMapping("/list/admin")
+    public Result<PageResult> selectItemListByAdmin(ItemPageQueryDTO itemPageQueryDTO){
+        log.info("管理员查询拍品列表:{}", itemPageQueryDTO);
+        PageResult pageResult = itemService.selectItemListByAdmin(itemPageQueryDTO);
+        return Result.success(pageResult);
+    }
     
     @GetMapping("/{itemId}")
     public Result<Item> selectItemById(@PathVariable Long itemId){
@@ -70,9 +77,9 @@ public class ItemController {
     }
 
     @PutMapping("/{listingStatus}")
-    public Result updateItemlistingStatusById(@PathVariable Integer listingStatus,Long id){
-        log.info("更新拍品id为{}的拍品的上架状态:{}",id, listingStatus);
-        itemService.updateItemlistingStatusById(id, listingStatus);
+    public Result updateItemlistingStatusById(@PathVariable Integer listingStatus,Long itemId){
+        log.info("更新拍品id为{}的拍品的上架状态为:{}", itemId, listingStatus);
+        itemService.updateItemlistingStatusById(itemId, listingStatus);
         return Result.success();
     }
 }

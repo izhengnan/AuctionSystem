@@ -66,9 +66,10 @@
                                             <th>拍品名称</th>
                                             <th>起拍价</th>
                                             <th>当前最高价</th>
-                                            <th>状态</th>
+                                            <th>竞拍状态</th>
                                             <th>开始时间</th>
                                             <th>结束时间</th>
+                                            <th>上架状态</th>
                                             <th>操作</th>
                                         </tr>
                                     </thead>
@@ -359,7 +360,7 @@
         // 加载拍品列表
         async function loadItemList() {
             try {
-                const response = await get('/item/list', {
+                const response = await get('/item/list/admin', {
                     page: 1,
                     pageSize: 100 // 获取所有拍品
                 });
@@ -422,9 +423,11 @@
                     <td><span class="badge ${statusClass}">${statusText}</span></td>
                     <td>${formatDateTime(item.startTime)}</td>
                     <td>${formatDateTime(item.endTime)}</td>
+                    <td><span class="badge ${item.listingStatus === 1 ? 'bg-primary' : 'bg-secondary'}">${item.listingStatus === 1 ? '上架中' : '下架中'}</span></td>
                     <td>
                         <button class="btn btn-sm btn-outline-primary edit-btn" data-id="${item.id}">编辑</button>
                         <button class="btn btn-sm btn-outline-danger delete-btn" data-id="${item.id}">删除</button>
+                        <button class="btn btn-sm btn-outline-success listing-status-btn" data-id="${item.id}" data-status="${item.listingStatus || 0}">${(item.listingStatus || 0) === 1 ? '下架' : '上架'}</button>
                     </td>
                 `;
                 tbody.appendChild(tr);
@@ -443,6 +446,15 @@
                 btn.addEventListener('click', function() {
                     const itemId = this.dataset.id;
                     deleteItem(itemId);
+                });
+            });
+            
+            // 绑定上架/下架按钮事件
+            document.querySelectorAll('.listing-status-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const itemId = this.dataset.id;
+                    const currentStatus = parseInt(this.dataset.status);
+                    toggleListingStatus(itemId, currentStatus, this);
                 });
             });
         }
@@ -698,6 +710,35 @@
             } catch (error) {
                 console.error('删除异常:', error);
                 alert('删除异常，请稍后重试');
+            }
+        }
+        
+        // 上架/下架拍品
+        async function toggleListingStatus(itemId, currentStatus, buttonElement) {
+            // 确认操作
+            const actionText = currentStatus === 1 ? '下架' : '上架';
+            if (!confirm(`确定要${actionText}该拍品吗？`)) {
+                return;
+            }
+            
+            try {
+                const newStatus = currentStatus === 1 ? 0 : 1;
+                // 根据说明文件，接口路径应为 /item/{listingStatus}，itemId作为查询参数
+                const response = await put(`/item/${newStatus}?itemId=${itemId}`, {});
+                
+                if (response.code === 1) {
+                    alert(`${actionText}成功！`);
+                    // 更新按钮状态和文本
+                    buttonElement.dataset.status = newStatus;
+                    buttonElement.textContent = newStatus === 1 ? '下架' : '上架';
+                    // 重新加载拍品列表
+                    loadItemList();
+                } else {
+                    alert(`${actionText}失败: ` + response.msg);
+                }
+            } catch (error) {
+                console.error(`${actionText}异常:`, error);
+                alert(`${actionText}异常，请稍后重试`);
             }
         }
         

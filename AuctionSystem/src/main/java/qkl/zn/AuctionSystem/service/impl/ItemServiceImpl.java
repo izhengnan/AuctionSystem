@@ -101,6 +101,13 @@ public class ItemServiceImpl implements ItemService {
         itemMapper.updateItemlistingStatusById(id,listingStatus);
     }
 
+    @Override
+    public PageResult selectItemListByAdmin(ItemPageQueryDTO itemPageQueryDTO) {
+        PageHelper.startPage(itemPageQueryDTO.getPage(), itemPageQueryDTO.getPageSize());
+        Page<Item> page = itemMapper.selectItemListByAdmin(itemPageQueryDTO);
+        return new PageResult(page.getTotal(), page.getResult());
+    }
+
     /**
      * 定时任务：每分钟检查拍品状态并更新
      * 状态规则：
